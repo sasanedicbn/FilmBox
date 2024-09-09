@@ -1,4 +1,7 @@
-const Label = (text:string) => {
+type LabelProps = {
+    text: string
+}
+const Label = ({text}:LabelProps) => {
     return(
       <label>{text}</label>
     )
