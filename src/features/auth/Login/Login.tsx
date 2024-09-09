@@ -1,3 +1,4 @@
+import Button from "../../../components/UI/Button";
 import Input from "../../../components/UI/Input";
 import Label from "../../../components/UI/Label";
 import LoginHeader from "./LoginHeader";
@@ -9,21 +10,26 @@ const Login = () => {
     ];
 
     return (
-        <div className="h-screen flex justify-center items-center w-full">
-            <div className="bg-gray-400 w-96 h-96 flex flex-col justify-center p-6 rounded-lg shadow-lg">
+        <div className="h-screen flex justify-center items-center w-full bg-gray-800">
+            <div className="bg-gray-300 w-96 h-120 flex flex-col justify-center p-6 rounded-lg shadow-lg">
                 <LoginHeader />
                 {LoginData.map((data) => (
                     <div key={data.name} className="mb-4">
+                        <Label text={data.label} />
                         <Input
                             type={data.type}
                             value={data.value}
                             name={data.name}
                             onChange={() => {}}
-                            typeStyle="w-full mb-2 p-2 border border-gray-300 rounded"
-                        />
-                        <Label text={data.label} />
+                            styleType="login"
+                        />                      
                     </div>
                 ))}
+                <Button type="login" onClick={() => {}}>Log in</Button>
+                <div className="mt-4 text-center text-gray-800">
+                    <p>Don't have an account? <a href="#" className="text-blue-700">Sign Up</a></p>
+                    <p className="mt-2">Or, <a href="#" className="text-blue-700">Log in as guest</a></p>
+                </div>
             </div>
         </div>
     );

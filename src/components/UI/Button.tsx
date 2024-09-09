@@ -1,12 +1,15 @@
-const Button = ({type,children,onClick}) => {
-    const base = 'border-none py-2.5 px-5 text-center no-underline cursor-pointer rounded'
+const Button = ({ type, children, onClick }) => {
+    const base = 'w-full py-2.5 px-5 text-center no-underline cursor-pointer rounded';
 
     const styles = {
-      LoginBtn: `${base} + 'border-red-500'`
-    }
-    return(
-        <button className={styles[type]} onClick={onClick}>{children}</button>
-    )
-}
+      login: `${base} bg-blue-500 text-white hover:bg-blue-600 mt-2 rounded-lg`,
+    };
 
-export default Button
+    return (
+        <button className={styles[type]} onClick={onClick}>
+            {children}
+        </button>
+    );
+};
+
+export default Button;
