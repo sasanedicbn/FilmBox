@@ -10,7 +10,7 @@ const Login = () => {
 
     return (
         <div className="h-screen flex justify-center items-center w-full">
-            <div className="bg-gray-400 w-64 flex flex-col justify-center p-6 rounded-lg shadow-lg">
+            <div className="bg-gray-400 w-96 h-96 flex flex-col justify-center p-6 rounded-lg shadow-lg">
                 <LoginHeader />
                 {LoginData.map((data) => (
                     <div key={data.name} className="mb-4">
@@ -19,7 +19,7 @@ const Login = () => {
                             value={data.value}
                             name={data.name}
                             onChange={() => {}}
-                            className="w-full mb-2 p-2 border border-gray-300 rounded"
+                            typeStyle="w-full mb-2 p-2 border border-gray-300 rounded"
                         />
                         <Label text={data.label} />
                     </div>
