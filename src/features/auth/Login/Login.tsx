@@ -18,7 +18,6 @@ const Login = () => {
                         <Label text={data.label} />
                         <Input
                             type={data.type}
-                            value={data.value}
                             name={data.name}
                             onChange={() => {}}
                             styleType="login"

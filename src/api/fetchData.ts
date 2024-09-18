@@ -6,7 +6,7 @@ export const fetchData = async (films) => {
   try {
     if(films){
         for(const film of films){
-            await addDoc(collection(db, 'films'), fim);
+            await addDoc(collection(db, 'films'), film);
         }
     }
     toast.success('Data sent successfully!')
