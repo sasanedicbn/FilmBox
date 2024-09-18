@@ -11,7 +11,7 @@ const Login = () => {
 
     return (
         <div className="h-screen flex justify-center items-center w-full bg-gray-800">
-            <div className="bg-gray-300 w-96 h-120 flex flex-col justify-center p-6 rounded-lg shadow-lg">
+            <div className="bg-gray-300 w-2/6 h-120 flex flex-col justify-center p-10 rounded-lg shadow-lg">
                 <LoginHeader />
                 {LoginData.map((data) => (
                     <div key={data.name} className="mb-4">
