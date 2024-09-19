@@ -1,5 +1,5 @@
-import { fetchData } from "../api/fetchData";
-import { data } from "../utils/data";
+import { fetchData } from "../../api/fetchData";
+import { data } from "../../utils/data";
 
 const Home = () => {
     return(
