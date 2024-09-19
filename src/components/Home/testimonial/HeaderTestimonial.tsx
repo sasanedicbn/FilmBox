@@ -1,23 +1,26 @@
-import { useEffect } from "react";
-import { sendTestimonialFilms } from "../../../api/sendTestimonialFilms";
-import { testimonialData } from "../../../utils/testimonialData";
+import { collection, getDocs } from "firebase/firestore";
+import { db, } from "../../../config/firebase";
+
 
 const HeaderTestimonial = () => {
-    useEffect(() => {
-        const sendData = async () => {
-            try {
-                await sendTestimonialFilms(testimonialData);
-            } catch (error) {
-                console.error("Error sending testimonial data:", error);
-            }
-        };
+    
+     const getTestimonialFilms = async () => {
+        const testimonialCollection = collection(db, 'testimonialFilms'); 
+        const testimonialSnapshot = await getDocs(testimonialCollection);
+        console.log(testimonialSnapshot,'snapshottestimonial')
+        const testimonialList = testimonialSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
 
-        sendData();
-    }, []);
-
+        console.log(testimonialList, 'vraceni filmovi')
+        
+        return testimonialList;
+    };
     return (
         <div className="w-full">
             TESTIMONIAL
+            <button onClick={getTestimonialFilms}>ADDDD TESTIMONIAL</button>
         </div>
     );
 }

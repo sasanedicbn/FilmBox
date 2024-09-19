@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { collection, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBulDytz_lboBH7ykd4GtKRFE0CUnnF-8A",
@@ -13,3 +13,5 @@ const firebaseConfig = {
 
  const app = initializeApp(firebaseConfig)
  export const db = getFirestore(app)
+ export const testimonialCollection = collection(db, 'testimonialFilms');
+console.log('testimonialFilms iz firebase', testimonialCollection)
