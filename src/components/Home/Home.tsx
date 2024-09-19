@@ -1,4 +1,4 @@
-import { fetchData } from "../../api/fetchData";
+import { sendData } from "../../api/sendData";
 import { data } from "../../utils/data";
 import MainPage from "./MainPage";
 import NavMenuSection from "./NavMenuSection";
@@ -8,7 +8,7 @@ const Home = () => {
         <div>
           <NavMenuSection/>
           <MainPage/>
-         <button onClick={() => fetchData(data)}>Add data</button>    
+         <button onClick={() => sendData(data)}>Add data</button>    
         </div>
     )
 }

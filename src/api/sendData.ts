@@ -2,7 +2,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { toast } from 'react-toastify';
 
-export const fetchData = async (films) => {
+export const sendData = async (films) => {
   try {
     if(films){
         for(const film of films){

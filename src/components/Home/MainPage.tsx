@@ -1,4 +1,4 @@
-import HeaderTestimonial from "./HeaderTestimonial"
+import HeaderTestimonial from "./testimonial/HeaderTestimonial"
 
 const MainPage = () => {
     return(
