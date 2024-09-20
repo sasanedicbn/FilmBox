@@ -1,16 +1,10 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { getTestimonialFilms } from "../../../store/slices/filmsSlice";
-import CardTestimonial from "./CardTestimonial";
 import { useEffect, useState } from "react";
+import CardTestimonial from "./CardTestimonial";
 
 const HeaderTestimonial = () => {
-    // const dispatch = useDispatch();
-    const [films, setFilms] = useState([])
-    
-    // Use an empty array as fallback if the state is not initialized
-    // const films = useSelector((state) => state.films?.testimonialFilms || []);
+    const [films, setFilms] = useState([]);
 
     const getTestimonials = async () => {
         const testimonialCollection = collection(db, 'testimonialFilms'); 
@@ -19,26 +13,28 @@ const HeaderTestimonial = () => {
             id: doc.id,
             ...doc.data()
         }));
-
-        // dispatch(getTestimonialFilms(testimonialList));
-        setFilms(testimonialList)
+        setFilms(testimonialList);
     };
 
     useEffect(() => {
         getTestimonials(); // Fetch testimonials on component mount
     }, []);
 
-    // console.log('returned films', films)
     return (
-        <div className="w-1/2 flex overflow-hidden">
-            {films.length > 0 ? (
-                films.map((film) => (
-                    <CardTestimonial key={film.id} testimonialFilms={film} /> // Ensure unique key
-                ))
-            ) : (
-                <p>No testimonials available</p> // Handle case when there are no films
-            )}
-            {/* <button onClick={getTestimonials}>Add Testimonials</button> */}
+        <div className=" w-1/2 overflow-hidden w-[925px]">
+            <div className="flex transition-transform duration-500 ">
+                {films.length > 0 ? (
+                    films.map((film) => (
+                        <div className="w-96px flex-shrink-0" key={film.id}>
+                            <CardTestimonial testimonialFilms={film} />
+                        </div>
+                    ))
+                ) : (
+                    <p>No testimonials available</p>
+                )}
+            </div>
+            <button  className="absolute top-72 left-32 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">Prev</button>
+            <button className="absolute right-32 top-72 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">Next</button>
         </div>
     );
 }
