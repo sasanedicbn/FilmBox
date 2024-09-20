@@ -6,12 +6,12 @@ import CardTestimonial from "./CardTestimonial";
 import { useEffect, useState } from "react";
 
 const HeaderTestimonial = () => {
-    const dispatch = useDispatch();
-    // const [films, setFilms] = useState([])
+    // const dispatch = useDispatch();
+    const [films, setFilms] = useState([])
     
     // Use an empty array as fallback if the state is not initialized
-    const films = useSelector((state) => state.films?.testimonialFilms || []);
-    console.log('films iz selectora', films)
+    // const films = useSelector((state) => state.films?.testimonialFilms || []);
+
     const getTestimonials = async () => {
         const testimonialCollection = collection(db, 'testimonialFilms'); 
         const testimonialSnapshot = await getDocs(testimonialCollection);
@@ -20,15 +20,15 @@ const HeaderTestimonial = () => {
             ...doc.data()
         }));
 
-        dispatch(getTestimonialFilms(testimonialList));
-        // setFilms(testimonialList)
+        // dispatch(getTestimonialFilms(testimonialList));
+        setFilms(testimonialList)
     };
 
     useEffect(() => {
         getTestimonials(); // Fetch testimonials on component mount
     }, []);
 
-    console.log('returned films', films)
+    // console.log('returned films', films)
     return (
         <div className="w-full">
             {films.length > 0 ? (
