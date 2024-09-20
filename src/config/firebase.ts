@@ -14,4 +14,3 @@ const firebaseConfig = {
  const app = initializeApp(firebaseConfig)
  export const db = getFirestore(app)
  export const testimonialCollection = collection(db, 'testimonialFilms');
-console.log('testimonialFilms iz firebase', testimonialCollection)
