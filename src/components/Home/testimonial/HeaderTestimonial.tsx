@@ -30,7 +30,7 @@ const HeaderTestimonial = () => {
 
     // console.log('returned films', films)
     return (
-        <div className="w-full">
+        <div className="w-1/2 flex overflow-hidden">
             {films.length > 0 ? (
                 films.map((film) => (
                     <CardTestimonial key={film.id} testimonialFilms={film} /> // Ensure unique key
@@ -38,7 +38,7 @@ const HeaderTestimonial = () => {
             ) : (
                 <p>No testimonials available</p> // Handle case when there are no films
             )}
-            <button onClick={getTestimonials}>Add Testimonials</button>
+            {/* <button onClick={getTestimonials}>Add Testimonials</button> */}
         </div>
     );
 }
