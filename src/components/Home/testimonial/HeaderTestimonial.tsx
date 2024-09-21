@@ -3,6 +3,7 @@ import { db } from "../../../config/firebase";
 import { useEffect, useState } from "react";
 import CardTestimonial from "./CardTestimonial";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import TitleTestimonial from "./TitleTestimonial";
 
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
@@ -37,7 +38,8 @@ const HeaderTestimonial = () => {
     };
 
     return (
-        <div className="relative w-[925px] overflow-hidden">
+        <div className="relative w-[925px] overflow-hidden  mt-14">
+            <TitleTestimonial/>
             <div
                 className="flex transition-transform duration-500"
                 style={{
