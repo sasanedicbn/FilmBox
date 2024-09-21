@@ -2,9 +2,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useEffect, useState } from "react";
 import CardTestimonial from "./CardTestimonial";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0); 
+
 
     const getTestimonials = async () => {
         const testimonialCollection = collection(db, 'testimonialFilms'); 
@@ -17,15 +20,33 @@ const HeaderTestimonial = () => {
     };
 
     useEffect(() => {
-        getTestimonials(); // Fetch testimonials on component mount
+        getTestimonials(); 
     }, []);
 
+   
+    const handlePrev = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? films.length - 4 : prevIndex - 4
+        );
+    };
+
+    const handleNext = () => {
+        setCurrentIndex((prevIndex) =>
+            prevIndex + 4 >= films.length ? 0 : prevIndex + 4
+        );
+    };
+
     return (
-        <div className=" w-1/2 overflow-hidden w-[925px]">
-            <div className="flex transition-transform duration-500 ">
+        <div className="relative w-[925px] overflow-hidden">
+            <div
+                className="flex transition-transform duration-500"
+                style={{
+                    transform: `translateX(-${currentIndex * 100 / 4}%)`, 
+                }}
+            >
                 {films.length > 0 ? (
                     films.map((film) => (
-                        <div className="w-96px flex-shrink-0" key={film.id}>
+                        <div className="w-1/4 flex-shrink-0" key={film.id}>
                             <CardTestimonial testimonialFilms={film} />
                         </div>
                     ))
@@ -33,10 +54,20 @@ const HeaderTestimonial = () => {
                     <p>No testimonials available</p>
                 )}
             </div>
-            <button  className="absolute top-72 left-32 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">Prev</button>
-            <button className="absolute right-32 top-72 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">Next</button>
+            <button 
+                onClick={handlePrev} 
+                className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+            >
+                <FaArrowLeft />
+            </button>
+            <button 
+                onClick={handleNext} 
+                className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+            >
+                <FaArrowRight />
+            </button>
         </div>
     );
-}
+};
 
 export default HeaderTestimonial;

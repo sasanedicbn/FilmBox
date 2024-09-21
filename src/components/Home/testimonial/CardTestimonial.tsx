@@ -4,6 +4,6 @@ const CardTestimonial = ({ testimonialFilms }) => {
           <img className="max-w-full max-h-full object-cover m-2" src={testimonialFilms.image} alt="Testimonial" />
       </div>
   );
-}
+};
 
 export default CardTestimonial;
