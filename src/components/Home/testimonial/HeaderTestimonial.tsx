@@ -38,8 +38,8 @@ const HeaderTestimonial = () => {
     };
 
     return (
-        <div className="relative w-[925px] overflow-hidden  mt-14">
-            <TitleTestimonial/>
+        <div className="relative w-[925px] overflow-hidden mt-14">
+            <TitleTestimonial currentIndex={currentIndex} />
             <div
                 className="flex transition-transform duration-500"
                 style={{
