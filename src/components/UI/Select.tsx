@@ -1,9 +1,8 @@
-import { FC } from "react";
 
 interface SelectProps {
     name: string;
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    children: React.ReactNode; // Select će primati Option komponente kao decu
+    children: React.ReactNode; 
     value?: string;
     className?: string;
 }

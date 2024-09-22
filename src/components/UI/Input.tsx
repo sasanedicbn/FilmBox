@@ -1,11 +1,12 @@
 import { InputProps } from "../../types/types";
 
-const Input = ({type, name, value, onChange, styleType ='login'}:InputProps) => {
+const Input = ({type, name, value, onChange, styleType ='login', placeholder=""}:InputProps) => {
     const styles = {
-        login: 'w-full mb-2 p-2 border border-gray-300 rounded-lg'
+        login: 'w-full mb-2 p-2 border border-gray-300 rounded-lg',
+        searchFilms: 'w-[220px] mb-2 p-1 border rounded-lg bg-gray-300 text-ml pl-2'
     }
     return(
-        <input className={styles[styleType]} type={type} name={name} value={value} onChange={onChange}/>
+        <input className={styles[styleType]} type={type} name={name} value={value} onChange={onChange} placeholder={placeholder}/>
     )
 }
 export default Input;
