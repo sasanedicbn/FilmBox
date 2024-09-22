@@ -38,7 +38,7 @@ const HeaderTestimonial = () => {
     };
 
     return (
-        <div className="relative w-[925px] overflow-hidden mt-14">
+        <div className=" w-[925px] overflow-hidden mt-14">
             <TitleTestimonial currentIndex={currentIndex} />
             <div
                 className="flex transition-transform duration-500"
@@ -58,13 +58,13 @@ const HeaderTestimonial = () => {
             </div>
             <button 
                 onClick={handlePrev} 
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute top-1/2 left-[9.5rem] left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
             >
                 <FaArrowLeft />
             </button>
             <button 
                 onClick={handleNext} 
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute top-1/2  right-[9.5rem] transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
             >
                 <FaArrowRight />
             </button>
