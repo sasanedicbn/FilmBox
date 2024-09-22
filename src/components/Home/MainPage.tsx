@@ -1,13 +1,13 @@
 import BodyPage from "./BodyPage";
-import HeaderTestimonial from "./testimonial/HeaderTestimonial"
+import HeaderTestimonial from "./testimonial/HeaderTestimonial";
 
 const MainPage = () => {
-    return(
-        <div className="bg-gray-900 h-screen flex  flex-col">
-            <HeaderTestimonial/>
-            <BodyPage/>
+    return (
+        <div className="bg-gray-900 h-screen flex flex-col items-center justify-center">
+            <HeaderTestimonial />
+            <BodyPage />
         </div>
-    )
-}
+    );
+};
 
 export default MainPage;
