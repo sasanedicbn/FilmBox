@@ -1,9 +1,11 @@
+import BodyPage from "./BodyPage";
 import HeaderTestimonial from "./testimonial/HeaderTestimonial"
 
 const MainPage = () => {
     return(
-        <div className="bg-gray-900 h-screen flex justify-center ">
+        <div className="bg-gray-900 h-screen flex  flex-col">
             <HeaderTestimonial/>
+            <BodyPage/>
         </div>
     )
 }
