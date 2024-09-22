@@ -1,6 +1,7 @@
-const TitleTestimonial = ({ currentIndex }) => {
-    const totalIndicators = 5;
-    const current = currentIndex / 4;
+const TitleTestimonial = ({ currentIndex, currentFilms }) => {
+    const totalIndicators = currentFilms + 1
+    const current = currentIndex / currentFilms;
+    console.log('currentIndex', currentIndex, 'currentFilms', currentFilms)
 
     return (
         <div className="flex justify-between mb-2">

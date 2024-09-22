@@ -8,6 +8,7 @@ import TitleTestimonial from "./TitleTestimonial";
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0); 
+    let currentFilms = 4
 
 
     const getTestimonials = async () => {
@@ -24,26 +25,33 @@ const HeaderTestimonial = () => {
         getTestimonials(); 
     }, []);
 
+
+    useEffect(() => {
+        const test = window.matchMedia('screen and (max-width:600px)')
+    test.addListener(() => console.log('change'))
+     console.log('TEST', test)
+    }, [])
+
    
     const handlePrev = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? films.length - 4 : prevIndex - 4
+            prevIndex === 0 ? films.length - currentFilms : prevIndex - currentFilms
         );
     };
 
     const handleNext = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex + 4 >= films.length ? 0 : prevIndex + 4
+            prevIndex + currentFilms >= films.length ? 0 : prevIndex + currentFilms
         );
     };
 
     return (
-        <div className=" w-[925px] overflow-hidden mt-14">
-            <TitleTestimonial currentIndex={currentIndex} />
+        <div className="mx-56 overflow-hidden mt-14">
+            <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} />
             <div
                 className="flex transition-transform duration-500"
                 style={{
-                    transform: `translateX(-${currentIndex * 100 / 4}%)`, 
+                    transform: `translateX(-${currentIndex * 100 / currentFilms}%)`, 
                 }}
             >
                 {films.length > 0 ? (
@@ -58,7 +66,7 @@ const HeaderTestimonial = () => {
             </div>
             <button 
                 onClick={handlePrev} 
-                className="absolute top-1/2 left-[9.5rem] left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute top-1/2 left-[9.5rem] transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
             >
                 <FaArrowLeft />
             </button>
