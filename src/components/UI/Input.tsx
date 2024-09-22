@@ -1,6 +1,6 @@
 import { InputProps } from "../../types/types";
 
-const Input = ({type, name, value, onChange, styleType}:InputProps) => {
+const Input = ({type, name, value, onChange, styleType ='login'}:InputProps) => {
     const styles = {
         login: 'w-full mb-2 p-2 border border-gray-300 rounded-lg'
     }
