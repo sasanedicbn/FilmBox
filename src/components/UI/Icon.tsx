@@ -1,8 +1,8 @@
-import { FaCheckCircle, FaHome } from 'react-icons/fa';
+import { FaBookmark, FaHome } from 'react-icons/fa';
 
-const Icon = ({ name, size = 24, color = 'black' }) => {
+const Icon = ({ name, size = 84, color = 'black' }) => {
     const icons = {
-        check: <FaCheckCircle size={size} color={color} />,
+        marked: <FaBookmark size={size} color={color} />,
         home: <FaHome size={size} color={color} />,
     };
 
