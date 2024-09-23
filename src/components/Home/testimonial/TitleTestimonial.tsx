@@ -1,5 +1,7 @@
-const TitleTestimonial = ({ currentIndex, currentFilms }) => {
-    const totalIndicators = currentFilms + 1
+const TitleTestimonial = ({ currentIndex, currentFilms, films }) => {
+    // console.log(films, 'films')
+    const testimonialFilms = films ? films.length : 0;
+    const totalIndicators = testimonialFilms / currentFilms 
     const current = currentIndex / currentFilms;
     console.log('currentIndex', currentIndex, 'currentFilms', currentFilms)
 

@@ -7,6 +7,7 @@ import TitleTestimonial from "./TitleTestimonial";
 
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
+    console.log(films)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentFilms, setCurrentFilms] = useState(4);
 
@@ -63,7 +64,7 @@ const HeaderTestimonial = () => {
     console.log('currentIndex', currentIndex, 'currentFilms', currentFilms);
     return (
         <div className="relative mx-auto overflow-hidden mt-14 max-w-6xl ">
-            <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} />
+            <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
             <div
                 className="flex transition-transform duration-500"
                 style={{
@@ -86,7 +87,7 @@ const HeaderTestimonial = () => {
             </div>
             <button
                 onClick={handlePrev}
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute top-1/2 left-4 transform -translate-y-1/2  bg-white p-2 rounded-full shadow-md"
             >
                 <FaArrowLeft />
             </button>
