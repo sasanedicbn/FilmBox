@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const NavMenuSection = () => {
     return (
-        <nav className="bg-gray-800 p-4">
-            <ul className="flex justify-between items-center">
+        <nav className="bg-gray-800 p-4 w-full max-w-full">
+            <ul className="flex justify-between items-center flex-wrap">
                 <li>
                     <Link to='/home' className="text-white text-lg font-bold">FilmBox</Link>
                 </li>
