@@ -13,7 +13,7 @@ const Select = ({ name, onChange, children, value, className }:SelectProps) => {
             name={name}
             value={value}
             onChange={onChange}
-            className={`p-2 border border-gray-300 rounded-lg ${className}`}
+            className={`p-1 border bg-gray-300 border-gray-300 rounded-lg pointer cursor-pointer ${className}`}
         >
             {children}
         </select>

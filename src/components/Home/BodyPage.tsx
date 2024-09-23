@@ -5,7 +5,7 @@ import Option from "../UI/Option";
 
 const BodyPage = () => {
     return (
-        <div className="bg-gray-800 flex items-center justify-between w-[940px] h-[50px]  gap-6 mt-24">
+        <div className="bg-gray-800 flex items-center justify-between w-[940px]  mt-24 p-4  rounded-lg">
             <Input
                 type="text"
                 name="searchFilms"
@@ -22,8 +22,8 @@ const BodyPage = () => {
                     <Option value="comedy">Comedy</Option>
                     <Option value="horror">Horror</Option>
                 </Select>
-                <Icon name="marked" size={30} color="green" />
-                <Icon name="home" size={30} color="blue" />
+                <Icon name="marked" size={30} color="grey" />
+                <Icon name="home" size={30} color="grey" />
             </div>
         </div>
     );

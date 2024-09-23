@@ -10,8 +10,8 @@ const Home = () => {
         <div>
           <NavMenuSection/>
           <MainPage/>
-         <button onClick={() => sendData(data)}>Add data</button>    
-         <button onClick={() => sendTestimonialFilms(testimonialData)}>add testimonial</button>
+         {/* <button onClick={() => sendData(data)}>Add data</button>    
+         <button onClick={() => sendTestimonialFilms(testimonialData)}>add testimonial</button> */}
         </div>
     )
 }
