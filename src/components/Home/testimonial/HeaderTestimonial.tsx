@@ -63,7 +63,7 @@ const HeaderTestimonial = () => {
 
     console.log('currentIndex', currentIndex, 'currentFilms', currentFilms);
     return (
-        <div className="relative mx-auto overflow-hidden mt-14 max-w-6xl ">
+        <div className="relative mx-auto overflow-hidden mt-14 max-w-6xl px-6">
             <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
             <div
                 className="flex transition-transform duration-500"
