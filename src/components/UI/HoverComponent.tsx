@@ -2,22 +2,24 @@ import { toast } from "react-toastify";
 import Icon from "./Icon";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { useNavigate, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentFilm } from "../../store/slices/filmsSlice";
 
 const HoverComponent = ({ films }) => {
   const navigate = useNavigate();
-
-  console.log('films', films);
+  const dispatch = useDispatch(); 
 
   const fetchFilmById = async (filmId) => {
     try {
       const filmRef = doc(db, 'testimonialFilms', filmId);
       const filmSnap = await getDoc(filmRef);
 
-      console.log('filmSnap', filmSnap);
       if (filmSnap.exists()) {
+        const filmData = { id: filmSnap.id, ...filmSnap.data() };
+        dispatch(setCurrentFilm(filmData)); 
         navigate(`/home/${filmId}`); 
-        return { id: filmSnap.id, ...filmSnap.data()};
+        return filmData;
       } else {
         console.log("Film not found!");
         return null;
