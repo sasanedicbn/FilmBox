@@ -14,8 +14,9 @@ const HeaderTestimonial = () => {
     const getTestimonials = async () => {
         const testimonialCollection = collection(db, "testimonialFilms");
         const testimonialSnapshot = await getDocs(testimonialCollection);
+        console.log('testimonialSnapShot----', testimonialSnapshot)
         const testimonialList = testimonialSnapshot.docs.map((doc) => ({
-            id: doc.id,
+            id2: doc.id,
             ...doc.data(),
         }));
         setFilms(testimonialList);
