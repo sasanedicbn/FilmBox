@@ -2,6 +2,7 @@ import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import HeaderSingleFilm from './HeaderSingleFilm';
 import DetailsSingleFilms from './DetailsSingleFilm';
+import ComponentWrapper from '../UI/ComponentWrapper';
 
 const SingleFilm = () => {
   const film = useSelector((state) => state.films?.currentFilm); 
@@ -12,7 +13,7 @@ const SingleFilm = () => {
   }
 
   return (
-      <div>
+      <ComponentWrapper>
         <HeaderSingleFilm/>
         <img src={film.image} alt={film.title} />
         <ReactPlayer
@@ -22,7 +23,7 @@ const SingleFilm = () => {
           height="360px"
         />
         <DetailsSingleFilms/>
-      </div>
+      </ComponentWrapper>
     
   );
 };

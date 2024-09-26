@@ -1,6 +1,6 @@
 const ComponentWrapper = ({children}) => {
     return(
-        <div>{children}</div>
+        <div className="bg-gray-900   flex flex-col items-center justify-center">{children}</div>
     )
 }
 
