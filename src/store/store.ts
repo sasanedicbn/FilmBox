@@ -3,7 +3,7 @@ import filmsSlice from './slices/filmsSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: filmsSlice, 
+    films: filmsSlice, 
   },
 });
 

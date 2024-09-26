@@ -16,7 +16,8 @@ const HoverComponent = ({ films }) => {
       const filmSnap = await getDoc(filmRef);
 
       if (filmSnap.exists()) {
-        const filmData = { id: filmSnap.id, ...filmSnap.data() };
+        const filmData = { id2: filmSnap.id, ...filmSnap.data() };
+        console.log('filmData', filmData)
         dispatch(setCurrentFilm(filmData)); 
         navigate(`/home/${filmId}`); 
         return filmData;
