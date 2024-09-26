@@ -21,6 +21,7 @@ const SingleFilm = () => {
           <img className='h-[360px] max-w-full object-contain' src={film.image} alt={film.title} />
           <ReactPlayer
             url={film.trailer} 
+            playing={true}
             controls={true} 
             width="100%" 
             height="360px"
