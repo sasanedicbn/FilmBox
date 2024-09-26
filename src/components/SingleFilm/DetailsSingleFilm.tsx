@@ -1,12 +1,18 @@
+import { useSelector } from "react-redux";
+
 const DetailsSingleFilms = () => {
+    const film = useSelector((state) => state.films?.currentFilm)
     return(
         <div>
-         <h1>{film.title}</h1>
+          {film.genre?.map((filmGenre) => {
+            <p>{filmGenre}</p>
+          })}
          <p>{film.description}</p>
-         <p>Director: {film.director.join(", ")}</p>
-         <p>Year: {film.year}</p>
-         <p>Rating: {film.rating}</p>
-      </div>
+         <p>Director</p>
+         <p>{film.director[0]}</p>
+         <p>Writers</p>
+         <p>{film.writers[0]}</p>
+        </div>
     )
 }
 export default DetailsSingleFilms;

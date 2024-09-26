@@ -1,5 +1,7 @@
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
+import HeaderSingleFilm from './HeaderSingleFilm';
+import DetailsSingleFilms from './DetailsSingleFilm';
 
 const SingleFilm = () => {
   const film = useSelector((state) => state.films?.currentFilm); 
@@ -10,8 +12,8 @@ const SingleFilm = () => {
   }
 
   return (
-    <div>
       <div>
+        <HeaderSingleFilm/>
         <img src={film.image} alt={film.title} />
         <ReactPlayer
           url={film.trailer} 
@@ -19,13 +21,9 @@ const SingleFilm = () => {
           width="640px" 
           height="360px"
         />
+        <DetailsSingleFilms/>
       </div>
-      <h1>{film.title}</h1>
-      <p>{film.description}</p>
-      <p>Director: {film.director.join(", ")}</p>
-      <p>Year: {film.year}</p>
-      <p>Rating: {film.rating}</p>
-    </div>
+    
   );
 };
 
