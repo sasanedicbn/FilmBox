@@ -3,7 +3,7 @@ import HeaderTestimonial from "./testimonial/HeaderTestimonial";
 
 const MainPage = () => {
     return (
-       <div className="bg-gray-900 overflow-hidden max-w-full w-full px-6">
+       <div className="bg-gray-900  overflow-hidden max-w-full w-full px-6">
             <HeaderTestimonial />
             <BodyPage />
        </div>

@@ -5,13 +5,14 @@ import Option from "../UI/Option";
 
 const BodyPage = () => {
     return (
-        <div className="bg-gray-800 flex items-center justify-between w-[940px]  mt-24 p-4  rounded-lg">
+        <div className="bg-gray-800 mx-auto flex items-center justify-between w-[75%]  mt-24 p-4  rounded-lg">
             <Input
                 type="text"
                 name="searchFilms"
                 placeholder="Search films..."
                 onChange={() => { console.log('onchange') }}
                 styleType='searchFilms'
+                value=""
             />
 
             <div className="flex items-center gap-4">
