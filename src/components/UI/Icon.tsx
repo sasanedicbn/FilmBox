@@ -1,12 +1,5 @@
 import { FaBookmark, FaHome, FaSearch, FaStar } from 'react-icons/fa';
-
-type IconName = 'marked' | 'home' | 'search' | 'star';
-
-interface IconProps {
-  name: IconName;
-  size?: number;
-  color?: string;
-}
+import { IconProps } from '../../types/types';
 
 const Icon = ({ name, size = 84, color = 'black' }: IconProps) => {
   const icons = {

@@ -5,12 +5,13 @@ import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentFilm } from "../../store/slices/filmsSlice";
+import { Film } from "../../types/types";
 
-const HoverComponent = ({ films }) => {
+const HoverComponent = ({ films }:{films:Film}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
 
-  const fetchFilmById = async (filmId) => {
+  const fetchFilmById = async (filmId:string) => {
     try {
       const filmRef = doc(db, 'testimonialFilms', filmId);
       const filmSnap = await getDoc(filmRef);

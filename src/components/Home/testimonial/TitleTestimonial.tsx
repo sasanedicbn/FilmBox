@@ -1,4 +1,6 @@
-const TitleTestimonial = ({ currentIndex, currentFilms, films }) => {
+import { Film } from "../../../types/types";
+
+const TitleTestimonial = ({ currentIndex, currentFilms, films }:{currentIndex:number, currentFilms:number, films:Film[]}) => {
     const testimonialFilms = films ? films.length : 0;
     const totalIndicators = testimonialFilms / currentFilms 
     const current = currentIndex / currentFilms;
