@@ -7,14 +7,12 @@ import TitleTestimonial from "./TitleTestimonial";
 
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
-    console.log(films)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentFilms, setCurrentFilms] = useState(4);
 
     const getTestimonials = async () => {
         const testimonialCollection = collection(db, "testimonialFilms");
         const testimonialSnapshot = await getDocs(testimonialCollection);
-        console.log('testimonialSnapShot----', testimonialSnapshot)
         const testimonialList = testimonialSnapshot.docs.map((doc) => ({
             id2: doc.id,
             ...doc.data(),
@@ -25,6 +23,7 @@ const HeaderTestimonial = () => {
     useEffect(() => {
         getTestimonials();
     }, []);
+
 
     useEffect(() => {
         const updateCurrentFilms = () => {
@@ -62,7 +61,6 @@ const HeaderTestimonial = () => {
         );
     };
 
-    console.log('currentIndex', currentIndex, 'currentFilms', currentFilms);
     return (
         <div className="relative mx-auto overflow-hidden mt-14 max-w-6xl px-6">
             <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
