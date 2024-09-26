@@ -18,8 +18,8 @@ const DetailsSingleFilms = () => {
       <p className="mt-6 text-lg font-semibold">Director:</p>
       <p className="text-gray-400">{film.director.join(", ")}</p>
 
-      <p className="mt-6 text-lg font-semibold">Writers:</p>
-      <p className="text-gray-400">{film.writers.join(", ")}</p>
+      <p className="mt-6  text-lg font-semibold">Writers:</p>
+      <p className="text-gray-400 mb-8">{film.writers.join(", ")}</p>
     </div>
   );
 };

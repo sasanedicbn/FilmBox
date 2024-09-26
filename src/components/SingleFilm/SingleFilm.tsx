@@ -2,13 +2,14 @@ import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import HeaderSingleFilm from './HeaderSingleFilm';
 import DetailsSingleFilms from './DetailsSingleFilm';
+import Spinner from '../UI/Spinner';
 
 const SingleFilm = () => {
   const film = useSelector((state) => state.films?.currentFilm); 
   console.log('single Film', film);
 
   if (!film) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
