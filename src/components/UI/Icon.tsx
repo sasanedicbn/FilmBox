@@ -5,7 +5,7 @@ const Icon = ({ name, size = 84, color = 'black' }) => {
         marked: <FaBookmark size={size} color={color} />,
         home: <FaHome size={size} color={color} />,
         search: <FaSearch size={size} color={color}/>,
-        start: <FaStar color={color} size={size} /> 
+        star: <FaStar color={color} size={size} /> 
     };
 
     return icons[name] || null;
