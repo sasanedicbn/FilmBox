@@ -6,21 +6,23 @@ import Pagination from "./Pagination";
 const Films = () => {
     const [films, setFilms] = useState([]); 
 
-    useEffect(() => {
+    // useEffect(() => {
         const fetchFilms = async () => {
             const filmsData = await paginations();
             setFilms(filmsData); 
         };
 
-        fetchFilms();
-    }, []); 
+    // }, []); 
 
     return (
+        <div>
         <div className="flex  mx-auto overflow-hidden mt-14 max-w-6xl px-6">
             {films.map((film) => (
                 <CardTestimonial key={film.id2} testimonialFilms={film} /> 
             ))}
-            <Pagination/>
+        </div>
+                <Pagination  /> 
+                <button onClick={fetchFilms}>Next</button>
         </div>
     );
 };
