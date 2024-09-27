@@ -35,7 +35,7 @@ export const paginations = async () => {
     const testimonialQuery = query(
         testimonialCollection,
         orderBy('id'),  // Očekuje se da imaš polje 'createdAt' za sortiranje
-        limit(5),
+        limit(4),
         ...(lastVisible ? [startAfter(lastVisible)] : []) // Ako postoji 'lastVisible', koristi ga za početak sledeće stranice
     );
 

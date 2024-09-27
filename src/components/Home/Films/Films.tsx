@@ -15,7 +15,7 @@ const Films = () => {
     }, []); 
 
     return (
-        <div className="w-[100%] bg-red-400 flex max-w-6xl mx-auto">
+        <div className="flex mx-auto overflow-hidden mt-14 max-w-6xl px-6">
             {films.map((film) => (
                 <CardTestimonial key={film.id} testimonialFilms={film} /> 
             ))}
