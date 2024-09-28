@@ -15,7 +15,7 @@ const Films = () => {
 
     return (
         <div>
-            <div className="flex mx-auto overflow-hidden mt-14 max-w-6xl px-6">
+            <div className="grid grid-cols-4 mx-auto overflow-hidden mt-14 max-w-6xl px-6">
                 {films.map((film) => (
                     <CardTestimonial key={film.id2} testimonialFilms={film} /> 
                 ))}
