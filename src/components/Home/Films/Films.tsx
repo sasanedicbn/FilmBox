@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import { paginations } from "../../../api/paginations";
 import Pagination from "./Pagination";
@@ -6,13 +6,16 @@ import Pagination from "./Pagination";
 const Films = () => {
     const [films, setFilms] = useState([]); 
 
-    // useEffect(() => {
+   
         const fetchFilms = async () => {
             const filmsData = await paginations();
             setFilms(filmsData); 
         };
 
-    // }, []); 
+        useEffect(() => {
+          fetchFilms()
+        }, [])
+  
 
     return (
         <div>
