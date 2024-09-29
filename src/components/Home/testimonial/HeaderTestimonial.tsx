@@ -65,7 +65,7 @@ const HeaderTestimonial = () => {
         <div className="relative mx-auto overflow-hidden mt-14 max-w-[70rem] px-6">
             <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
             <div
-                className="flex transition-transform duration-500 overflow-hidden"
+                className="flex transition-transform duration-500 "
                 style={{
                     transform: `translateX(-${(currentIndex * 100) / currentFilms}%)`,
                 }}

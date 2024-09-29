@@ -15,10 +15,10 @@ const Films = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-14 px-6">
+    <div className="max-w-[71rem] mx-auto mt-14  ">
       <div className="grid grid-cols-4 gap-6"> {/* Dodato gap-6 za razmak između kartica */}
         {films.map((film) => (
-          <div key={film.id2} className="flex flex-col w-full"> {/* Flex i w-full za ujednačenu širinu */}
+          <div key={film.id2} className="flex flex-col "> {/* Flex i w-full za ujednačenu širinu */}
             <CardTestimonial testimonialFilms={film} /> 
             <FilmsDetails films={film} />
           </div>

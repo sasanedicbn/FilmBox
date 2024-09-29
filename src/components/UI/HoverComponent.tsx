@@ -33,7 +33,7 @@ const HoverComponent = ({ films }:{films:Film}) => {
   };
 
   return (
-    <div className="absolute inset-0 bg-slate-400 mx-7 pointer bg-opacity-60 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-2">
+    <div className="absolute inset-0 bg-slate-400 mx-6 pointer bg-opacity-60 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300 p-2">
       <div className="text-center">
         <span className="absolute top-2 right-2">
           <Icon name="marked" size={30} color="white" />
