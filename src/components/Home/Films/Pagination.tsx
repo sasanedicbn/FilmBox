@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-const Pagination = ({ fetchFilms, currentPage }) => {
-    const [activePage, setActivePage] = useState(currentPage); // Koristimo currentPage iz props
+const Pagination = ({ fetchFilms, }) => {
+    const [activePage, setActivePage] = useState(1); 
     let lengthPagination = 10;
 
     const handleNext = () => {
         if (activePage < lengthPagination - 1) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
-            fetchFilms(nextPage);  // Prosleđuje sledeću stranicu u fetchFilms
         }
     };
 
@@ -16,7 +15,6 @@ const Pagination = ({ fetchFilms, currentPage }) => {
         if (activePage > 0) {
             const prevPage = activePage - 1;
             setActivePage(prevPage);
-            fetchFilms(prevPage);  // Prosleđuje prethodnu stranicu u fetchFilms
         }
     };
 
@@ -36,7 +34,7 @@ const Pagination = ({ fetchFilms, currentPage }) => {
                     ${activePage === index ? 'bg-cyan-600 text-white' : 'bg-cyan-200 text-black hover:bg-cyan-400'}`}
                     onClick={() => {
                         setActivePage(index);
-                        fetchFilms(index);  // Prosleđuje kliknutu stranicu
+                        fetchFilms(index);  
                     }}
                 >
                     {index + 1}
