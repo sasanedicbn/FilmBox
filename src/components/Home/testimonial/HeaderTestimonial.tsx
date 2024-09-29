@@ -62,10 +62,10 @@ const HeaderTestimonial = () => {
     };
 
     return (
-        <div className="relative mx-auto overflow-hidden mt-14 max-w-6xl px-6">
+        <div className="relative mx-auto overflow-hidden mt-14 max-w-[70rem] px-6">
             <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
             <div
-                className="flex transition-transform duration-500"
+                className="flex transition-transform duration-500 overflow-hidden"
                 style={{
                     transform: `translateX(-${(currentIndex * 100) / currentFilms}%)`,
                 }}
@@ -73,7 +73,7 @@ const HeaderTestimonial = () => {
                 {films.length > 0 ? (
                     films.map((film) => (
                         <div
-                            className="flex-shrink-0"
+                            className="flex-shrink-0 "
                             style={{ flex: `0 0 ${100 / currentFilms}%` }}
                             key={film.id}
                         >
