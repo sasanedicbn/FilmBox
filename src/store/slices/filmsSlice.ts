@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 const initialState = {
   films: [],
@@ -24,7 +25,11 @@ export const filmsSlice = createSlice({
       state.currentFilm = null;
     },
     addMarketFilms:(state, action) => {
-      state.markedFilms = action.payload
+      const existingFilm = state.markedFilms.find(film => film.id2 === action.payload.id2)
+      if(!existingFilm){
+        state.markedFilms.push(action.payload)
+      } else {
+        toast.info("Film is already marked.");
     }}
   },
 });
