@@ -6,50 +6,61 @@ import { db } from "../../../config/firebase";
 
 const Films = () => {
   const [films, setFilms] = useState([]); 
-  const [currentPage, setCurrentPage] = useState(0); // Početna stranica 0
+  const [currentPage, setCurrentPage] = useState(null)
   const [lastVisible, setLastVisible] = useState(null);
-  const [firstVisible, setFirstVisible] = useState(null);
-  
+  const [firstVisible, setFirstVisible] = useState(null)
+
   const fetchMovies = async (startAfterDoc = null, previous = false) => {
     const coll = collection(db, "films");
-
+  
     const moviesQuery = startAfterDoc 
       ? query(coll, orderBy('rating', "desc"), previous ? endBefore(startAfterDoc) : startAfter(startAfterDoc), limit(12)) 
       : query(coll, orderBy('rating', "desc"), limit(12));
-
+  
     const data = await getDocs(moviesQuery);
-
+  
     if (data.empty) {
       console.log('Nema više podataka');
       return;
     }
-
-    const movies = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  
+    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     setFilms(movies); 
-
+  
     const lastVisibleRef = data.docs[data.docs.length - 1];
     setLastVisible(lastVisibleRef);
-
-    const firstVisibleRef = data.docs[0];
-    setFirstVisible(firstVisibleRef); // Postavljanje firstVisible na prvi dokument
-
-    console.log('firstVisible', firstVisibleRef);
+  
+    // Postavi firstVisible samo ako data.docs nije prazan
+    if (data.docs.length > 0) {
+      const firstVisibleRef = data.docs[0];
+      setFirstVisible(firstVisibleRef);
+      console.log('firstFilms', firstVisibleRef); // Sada ovde možeš da vidiš firstVisibleRef
+    } else {
+      setFirstVisible(null); // U slučaju da nema podataka
+    }
+  
+    console.log('data.docs[0]', data.docs[0]);
+    console.log('movies', movies);
   };
+  
 
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
     await fetchMovies(lastVisible); 
-    setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + 1)
   };
 
   const fetchPreviousPage = async () => {
-    if (!firstVisible || currentPage <= 0) return; // Dodaj proveru da li je trenutna stranica veća od 0
-    await fetchMovies(firstVisible, true);
-    setCurrentPage(currentPage - 1); // Smanji trenutnu stranicu
-  };
+    if(!firstVisible) return
+    console.log('firstVisible iz funckije gdje ide doma', firstVisible.id2)
+    await fetchMovies(firstVisible, true)
+    setCurrentPage(currentPage + 1)
+  }
+  
 
   useEffect(() => {
     fetchMovies(); 
+    setCurrentPage(1)
   }, []);
 
   return (
@@ -62,14 +73,16 @@ const Films = () => {
           </div>
         ))}
       </div>
-      <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage} disabled={currentPage <= 0}>
+      <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage}>
         Previous
       </button>
       <button className="bg-slate-50 mr-4" onClick={fetchNextPage}>
         Next
       </button>
+   
     </div>
   );
 };
 
 export default Films;
+
