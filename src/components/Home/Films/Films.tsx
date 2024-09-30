@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "./FilmsDetails";
-import { collection, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
+import { collection, endBefore, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 
 const Films = () => {
   const [films, setFilms] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(0); // Početna stranica 0
   const [lastVisible, setLastVisible] = useState(null);
-
-  const fetchMovies = async (startAfterDoc = null) => {
+  const [firstVisible, setFirstVisible] = useState(null);
+  
+  const fetchMovies = async (startAfterDoc = null, previous = false) => {
     const coll = collection(db, "films");
 
     const moviesQuery = startAfterDoc 
-      ? query(coll, orderBy('rating', "desc"), startAfter(startAfterDoc), limit(12)) 
+      ? query(coll, orderBy('rating', "desc"), previous ? endBefore(startAfterDoc) : startAfter(startAfterDoc), limit(12)) 
       : query(coll, orderBy('rating', "desc"), limit(12));
 
-      // ove dvije const orderBy i limit u const prebaciti
-      // mzd br pagininacije x maxmovies num
     const data = await getDocs(moviesQuery);
 
     if (data.empty) {
@@ -30,16 +30,23 @@ const Films = () => {
     const lastVisibleRef = data.docs[data.docs.length - 1];
     setLastVisible(lastVisibleRef);
 
-    console.log('movies', movies);
-    console.log('lastFilms', lastVisibleRef);
+    const firstVisibleRef = data.docs[0];
+    setFirstVisible(firstVisibleRef); // Postavljanje firstVisible na prvi dokument
+
+    console.log('firstVisible', firstVisibleRef);
   };
 
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
     await fetchMovies(lastVisible); 
+    setCurrentPage(currentPage + 1);
   };
-  
-  
+
+  const fetchPreviousPage = async () => {
+    if (!firstVisible || currentPage <= 0) return; // Dodaj proveru da li je trenutna stranica veća od 0
+    await fetchMovies(firstVisible, true);
+    setCurrentPage(currentPage - 1); // Smanji trenutnu stranicu
+  };
 
   useEffect(() => {
     fetchMovies(); 
@@ -55,6 +62,9 @@ const Films = () => {
           </div>
         ))}
       </div>
+      <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage} disabled={currentPage <= 0}>
+        Previous
+      </button>
       <button className="bg-slate-50 mr-4" onClick={fetchNextPage}>
         Next
       </button>
@@ -63,4 +73,3 @@ const Films = () => {
 };
 
 export default Films;
-

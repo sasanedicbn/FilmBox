@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Pagination = ({ fetchFilms, }) => {
+const Pagination = () => {
     const [activePage, setActivePage] = useState(1); 
     let lengthPagination = 10;
 
