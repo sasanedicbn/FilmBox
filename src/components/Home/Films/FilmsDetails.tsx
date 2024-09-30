@@ -1,4 +1,4 @@
-import { FaStar } from "react-icons/fa"; // Import star icon from react-icons
+import { FaStar } from "react-icons/fa"; 
 
 const FilmsDetails = ({ films }) => {
   return (

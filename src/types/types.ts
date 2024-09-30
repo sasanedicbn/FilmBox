@@ -13,6 +13,7 @@ export type IconProps = {
   name: IconName;
   size?: number;
   color?: string;
+  onClick: () => void;
 }
 export type Film = {
     id2: string;

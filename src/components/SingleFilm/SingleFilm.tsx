@@ -6,7 +6,6 @@ import Spinner from '../UI/Spinner';
 
 const SingleFilm = () => {
   const film = useSelector((state) => state.films?.currentFilm); 
-  console.log('single Film', film);
 
   if (!film) {
     return <Spinner />;

@@ -3,9 +3,9 @@ import { IconProps } from '../../types/types';
 
 const Icon = ({ name, size = 84, color = 'black', onClick }: IconProps) => {
   const icons = {
-    marked: <FaBookmark size={size} color={color} onClick={onClick ? onClick : undefined} />, 
+    marked: <FaBookmark size={size} color={color} onClick={onClick} />, 
     home: <FaHome size={size} color={color} />, 
-    search: <FaSearch size={size} color={color} onClick={onClick ? onClick : undefined} />, 
+    search: <FaSearch size={size} color={color} onClick={onClick} />, 
     star: <FaStar color={color} size={size} />, 
   };
 
