@@ -18,12 +18,10 @@ const HoverComponent = ({ films }:{films:Film}) => {
 
       if (filmSnap.exists()) {
         const filmData = { id2: filmSnap.id, ...filmSnap.data() };
-        console.log('filmData', filmData)
         dispatch(setCurrentFilm(filmData)); 
         navigate(`/home/${filmId}`); 
         return filmData;
       } else {
-        console.log("Film not found!");
         return null;
       }
     } catch (error) {
