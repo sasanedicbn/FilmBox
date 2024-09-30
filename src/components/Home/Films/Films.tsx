@@ -1,63 +1,66 @@
 import { useEffect, useState } from "react";
 import CardTestimonial from "../testimonial/CardTestimonial";
-import { paginations } from "../../../api/paginations";
-import Pagination from "./Pagination";
 import FilmsDetails from "./FilmsDetails";
-import { collection,  getDocs, limit, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../../config/firebase";
+
 const Films = () => {
   const [films, setFilms] = useState([]); 
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [firstVisible, setFirstVisible] = useState(null)
-  const [lastVisible, setLastVisible] = useState(null)
+  const [lastVisible, setLastVisible] = useState(null);
 
+  const fetchMovies = async (startAfterDoc = null) => {
+    const coll = collection(db, "films");
 
-  const fetchNextPage = () => {
-     
-  }
+    const moviesQuery = startAfterDoc 
+      ? query(coll, orderBy('rating', "desc"), startAfter(startAfterDoc), limit(12)) 
+      : query(coll, orderBy('rating', "desc"), limit(12));
 
-  const fetchFilms = async () => {
-    const filmsData = await paginations();  
-    setFilms(filmsData);
+      // ove dvije const orderBy i limit u const prebaciti
+      // mzd br pagininacije x maxmovies num
+    const data = await getDocs(moviesQuery);
+
+    if (data.empty) {
+      console.log('Nema više podataka');
+      return;
+    }
+
+    const movies = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    setFilms(movies); 
+
+    const lastVisibleRef = data.docs[data.docs.length - 1];
+    setLastVisible(lastVisibleRef);
+
+    console.log('movies', movies);
+    console.log('lastFilms', lastVisibleRef);
   };
 
-async function fetchInitailMovies () {
-  const coll = collection(db, "films");
-  const initialQuery = query(coll, orderBy('rating', "desc"), limit(12))
-  const data = await getDocs(initialQuery)
-  const movies = data.docs.map((doc) => doc.data() )
-  setFilms(movies)
-  console.log('data', data.docs[0])
-  const firstVisibleRef = data.docs[0]
-  const lastVisibleRef = data.docs[data.docs.length - 1]
-  setFirstVisible(firstVisibleRef)
-  setLastVisible(lastVisibleRef)
-  // setFirstVisible(data.docs[0])
-  // setLastVisible(data.docs[data.docs.length - 1])
+  const fetchNextPage = async () => {
+    if (!lastVisible) return; 
+    await fetchMovies(lastVisible); 
+  };
   
-  console.log(movies, 'movies')
-}
-useEffect(() => {
-  fetchInitailMovies()
   
-  console.log(firstVisible, 'firstVisible')
-  console.log(lastVisible, 'lastVisible')
-}, [])
+
+  useEffect(() => {
+    fetchMovies(); 
+  }, []);
+
   return (
-    <div className="max-w-[71rem] mx-auto mt-14  ">
-      <div className="grid grid-cols-4 gap-6"> 
+    <div className="max-w-[71rem] mx-auto mt-14">
+      <div className="grid grid-cols-4 gap-6">
         {films.map((film) => (
-          <div key={film.id} className="flex flex-col "> 
-            <CardTestimonial testimonialFilms={film} /> 
+          <div key={film.id} className="flex flex-col">
+            <CardTestimonial testimonialFilms={film} />
             <FilmsDetails films={film} />
           </div>
         ))}
       </div>
-      <button className="bg-slate-50 mr-4">Next</button>
-      <button className="bg-slate-200">Prev</button>
-      {/* <Pagination fetchFilms={fetchFilms} />  */}
+      <button className="bg-slate-50 mr-4" onClick={fetchNextPage}>
+        Next
+      </button>
     </div>
   );
 };
 
 export default Films;
+
