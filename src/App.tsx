@@ -1,7 +1,8 @@
-import { createBrowserRouter, RouterProvider,  } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Login from './features/auth/Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'; // Dodaj import za ToastContainer
 import { Provider } from 'react-redux';
 import store from './store/store';
 import SingleFilm from './components/SingleFilm/SingleFilm';
@@ -16,14 +17,14 @@ function App() {
     },
     {
       path: '/home',
-      element: <HomeLayout />,  
+      element: <HomeLayout />,
       children: [
         {
-          path: '', 
-          element: <MainPage />  
+          path: '',
+          element: <MainPage />
         },
         {
-          path: ':id',  
+          path: ':id',
           element: <SingleFilm />
         }
       ]
@@ -33,7 +34,18 @@ function App() {
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
+      <ToastContainer 
+        position="top-center"  
+        autoClose={4000}     
+        hideProgressBar={false} 
+        newestOnTop={false}  
+        closeOnClick          
+        pauseOnHover          
+        draggable             
+        theme="light"         
+      />
     </Provider>
   );
 }
+
 export default App;
