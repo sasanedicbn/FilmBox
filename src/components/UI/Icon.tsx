@@ -1,11 +1,14 @@
 import { FaBookmark, FaHome, FaSearch, FaStar } from 'react-icons/fa';
 import { IconProps } from '../../types/types';
 
-const Icon = ({ name, size = 84, color = 'black', onClick }: IconProps) => {
+const Icon = ({ name, size = 84, color = 'black', onClick, type='none' }: IconProps) => {
+  const style = {
+    pointer: type
+  }
   const icons = {
-    marked: <FaBookmark size={size} color={color} onClick={onClick} />, 
-    home: <FaHome size={size} color={color} />, 
-    search: <FaSearch size={size} color={color} onClick={onClick} />, 
+    marked: <FaBookmark size={size} color={color} onClick={onClick} className={style[type]} />, 
+    home: <FaHome size={size} color={color} onClick={onClick} className={style[type]}/> , 
+    search: <FaSearch size={size} color={color} onClick={onClick} className={style[type]}/>, 
     star: <FaStar color={color} size={size} />, 
   };
 
