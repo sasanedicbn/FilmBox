@@ -32,7 +32,6 @@ const HoverComponent = ({ films }: { films: Film }) => {
 
   const handleMarkFilm = () => {
     dispatch(addMarketFilms(films)); 
-    toast.success("Film marked successfully!"); 
   };
 
   return (

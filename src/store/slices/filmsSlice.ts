@@ -28,8 +28,10 @@ export const filmsSlice = createSlice({
       const existingFilm = state.markedFilms.find(film => film.id2 === action.payload.id2)
       if(!existingFilm){
         state.markedFilms.push(action.payload)
+        toast.success("Film marked successfully!"); 
       } else {
-        toast.info("Film is already marked.");
+        state.markedFilms.splice(existingFilm, 1)
+        toast.error("Remove marked from film.");
     }}
   },
 });
