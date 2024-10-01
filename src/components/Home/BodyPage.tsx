@@ -31,14 +31,16 @@ const BodyPage = ({ openClickedFilms, openFilms }) => {
         <Icon
           name="marked"
           size={30}
-          color={openFilms ? "red" : "grey"}
+          color={openFilms ? "grey" : "red"}
           onClick={openClickedFilms}
+          type="pointer"
         />
         <Icon
           name="home"
           size={30}
-          color={openFilms ? "grey" : "red"}
+          color={openFilms ? "red" : "grey"}
           onClick={openClickedFilms}
+          type="pointer"
         />
       </div>
     </div>
