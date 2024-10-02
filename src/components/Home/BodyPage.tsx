@@ -2,8 +2,10 @@ import Input from "../UI/Input";
 import Icon from "../UI/Icon";
 import Select from "../UI/Select";
 import Option from "../UI/Option";
+import { BodyPageProps } from "../../types/types";
 
-const BodyPage = ({ openClickedFilms, openFilms }) => {
+
+const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   return (
     <div className="bg-gray-800 mx-auto flex items-center justify-between w-[75%] mt-24 p-4 rounded-lg">
       <Input

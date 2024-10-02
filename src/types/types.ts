@@ -32,3 +32,7 @@ export type Film = {
     trailer: string,
     writers: string[],
   }
+export type BodyPageProps = {
+  openClickedFilms: () => void;
+  openFilms: boolean;
+}
