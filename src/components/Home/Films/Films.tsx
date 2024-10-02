@@ -29,6 +29,16 @@ const Films = () => {
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     setFilms(movies); 
 
+    const lastVisibleRef = data.docs[data.docs.length - 1];
+    setLastVisible(lastVisibleRef);
+
+    const firstVisibleRef = data.docs[0]
+    setFirstVisible(firstVisibleRef)
+    console.log('data.docs[0]', data.docs[0])
+
+    console.log('movies', movies);
+    console.log('firstFilms', firstVisible);
+  };
 
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
