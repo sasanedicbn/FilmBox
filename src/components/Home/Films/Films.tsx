@@ -12,37 +12,23 @@ const Films = () => {
 
   const fetchMovies = async (startAfterDoc = null, previous = false) => {
     const coll = collection(db, "films");
-  
+
     const moviesQuery = startAfterDoc 
       ? query(coll, orderBy('rating', "desc"), previous ? endBefore(startAfterDoc) : startAfter(startAfterDoc), limit(12)) 
       : query(coll, orderBy('rating', "desc"), limit(12));
-  
+
+      // ove dvije const orderBy i limit u const prebaciti
+      // mzd br pagininacije x maxmovies num
     const data = await getDocs(moviesQuery);
-  
+
     if (data.empty) {
       console.log('Nema više podataka');
       return;
     }
-  
+
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     setFilms(movies); 
-  
-    const lastVisibleRef = data.docs[data.docs.length - 1];
-    setLastVisible(lastVisibleRef);
-  
-    // Postavi firstVisible samo ako data.docs nije prazan
-    if (data.docs.length > 0) {
-      const firstVisibleRef = data.docs[0];
-      setFirstVisible(firstVisibleRef);
-      console.log('firstFilms', firstVisibleRef); // Sada ovde možeš da vidiš firstVisibleRef
-    } else {
-      setFirstVisible(null); // U slučaju da nema podataka
-    }
-  
-    console.log('data.docs[0]', data.docs[0]);
-    console.log('movies', movies);
-  };
-  
+
 
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
