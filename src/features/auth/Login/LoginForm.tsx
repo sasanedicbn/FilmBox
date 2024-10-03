@@ -4,6 +4,8 @@ import Button from "../../../components/UI/Button";
 import Input from "../../../components/UI/Input";
 import Label from "../../../components/UI/Label";
 import * as z from 'zod';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../config/firebase';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -19,8 +21,15 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema), 
   });
 
-  const onSubmit = (data) => {
-    console.log('Valid form data:', data);
+  const onSubmit = async (data) => {
+    try {
+      // Firebase prijava
+      const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+      console.log('Prijavljen korisnik:', userCredential.user);
+      // Možeš ovde dodati navigaciju ili drugu logiku nakon prijave
+    } catch (error) {
+      console.error("Greška prilikom prijave:", error.message);
+    }
   };
 
   return (
