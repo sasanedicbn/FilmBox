@@ -23,10 +23,8 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Firebase prijava
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
       console.log('Prijavljen korisnik:', userCredential.user);
-      // Možeš ovde dodati navigaciju ili drugu logiku nakon prijave
     } catch (error) {
       console.error("Greška prilikom prijave:", error.message);
     }
