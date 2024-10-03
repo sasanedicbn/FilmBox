@@ -101,4 +101,3 @@ const HeaderTestimonial = () => {
 };
 
 export default HeaderTestimonial;
-// LEARNING ABOUT HIGER ORDER FUNCTION AND CALLBACK FUNCTION FROM FRONTEND MENTOR
