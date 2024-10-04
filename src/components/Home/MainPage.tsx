@@ -16,7 +16,9 @@ const MainPage = () => {
     <div className="bg-gray-900 overflow-hidden max-w-full w-full px-6">
       <HeaderTestimonial />
       <BodyPage openClickedFilms={openItem} openFilms={openFilms} />
-      {open
+      {openFilms ? <Films /> : <BookMarked />}
+      <button className="bg-cyan-400" onClick={() => paginations()}>
+        PAGINATION
       </button>
     </div>
   );
