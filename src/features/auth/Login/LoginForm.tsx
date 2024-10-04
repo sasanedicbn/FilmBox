@@ -36,9 +36,6 @@ const LoginForm = () => {
         <Label text="Email" />
         <Input
           type="email"
-          {...register('email')}
-          styleType="login"
-        />
         {errors.email && (
           <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
         )}
