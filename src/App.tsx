@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Login from './features/auth/Login/Login';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'; // Dodaj import za ToastContainer
 import { Provider } from 'react-redux';
@@ -8,6 +7,7 @@ import store from './store/store';
 import SingleFilm from './components/SingleFilm/SingleFilm';
 import MainPage from './components/Home/MainPage';
 import HomeLayout from './components/Home/HomeLayout';
+import Login from './features/Login';
 
 function App() {
   const router = createBrowserRouter([

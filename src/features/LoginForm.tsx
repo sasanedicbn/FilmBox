@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from "../../../components/UI/Button";
-import Label from "../../../components/UI/Label";
+
 import * as z from 'zod';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../../config/firebase';
+import Button from '../components/UI/Button';
+import Label from '../components/UI/Label';
+import { auth } from '../config/firebase';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
