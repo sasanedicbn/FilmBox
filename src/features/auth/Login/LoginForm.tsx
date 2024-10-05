@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from "../../../components/UI/Button";
-import Input from "../../../components/UI/Input";
 import Label from "../../../components/UI/Label";
 import * as z from 'zod';
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -34,10 +33,11 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
         <Label text="Email" />
-        <Input
+        <input
           type="email"
-          {...register('email')}
-          styleType="login"
+          placeholder="Enter your email"
+          {...register('email')}  
+          className='w-full mb-2 p-2 border border-gray-300 rounded-lg'
         />
         {errors.email && (
           <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -45,16 +45,17 @@ const LoginForm = () => {
       </div>
       <div className="mb-4">
         <Label text="Password" />
-        <Input
+        <input
           type="password"
-          {...register('password')}
-          styleType="login"
+          placeholder="Enter your password"
+          {...register('password')}  
+          className='w-full mb-2 p-2 border border-gray-300 rounded-lg'
         />
         {errors.password && (
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
-      <Button type="submit" type="login">Log in</Button>
+      <Button type="login">Log in</Button>
     </form>
   );
 };
