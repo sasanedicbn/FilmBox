@@ -24,7 +24,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-      console.log('Prijavljen korisnik:', userCredential.user);
+      console.log('Prijavljen korisnik:', userCredential);
     } catch (error) {
       console.error("Greška prilikom prijave:", error.message);
     }
@@ -54,7 +54,7 @@ const LoginForm = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
-      <Button type="submit">Log in</Button>
+      <Button type="submit" type="login">Log in</Button>
     </form>
   );
 };

@@ -6,7 +6,7 @@ const Button = ({ type, children, onClick }) => {
     };
 
     return (
-        <button className={styles[type]} onClick={onClick}>
+        <button type='submit' className={styles[type]} onClick={onClick}>
             {children}
         </button>
     );
