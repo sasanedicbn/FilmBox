@@ -32,7 +32,11 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div cl
+      <div className="mb-4">
+        <Label text="Email" />
+        <Input
+          type="email"
+          {...register('email')}
           styleType="login"
         />
         {errors.email && (
