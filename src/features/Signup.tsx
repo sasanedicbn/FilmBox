@@ -74,7 +74,7 @@ const Signup = () => {
           <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
         )}
       </div>
-      <Button type="login">Log in</Button>
+      <Button type="login">Sign up</Button>
     </form>
   );
 };

@@ -19,7 +19,7 @@ const Login = () => {
           <p>
             Don't have an account?{" "}
             <a href="#" className="text-blue-700" onClick={openSignUpHandler}>
-              Sign Up
+             {openSignUp ? 'Sign Up' : 'Log in'}
             </a>
           </p>
           <p className="mt-2">
