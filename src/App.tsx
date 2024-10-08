@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify'; // Dodaj import za ToastContainer
+import { ToastContainer } from 'react-toastify'; 
 import { Provider } from 'react-redux';
 import store from './store/store';
 import SingleFilm from './components/SingleFilm/SingleFilm';
