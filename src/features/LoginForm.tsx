@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import * as z from 'zod';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../components/UI/Button';
 import Label from '../components/UI/Label';
 import { auth } from '../config/firebase';
@@ -18,15 +17,15 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(loginSchema), 
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-      console.log('Prijavljen korisnik:', userCredential);
+      console.log('Korisnik je prijavljen:', userCredential.user);
     } catch (error) {
-      console.error("Greška prilikom prijave:", error.message);
+      console.error('Greška prilikom prijave:', error.message);
     }
   };
 
@@ -37,26 +36,22 @@ const LoginForm = () => {
         <input
           type="email"
           placeholder="Enter your email"
-          {...register('email')}  
-          className='w-full mb-2 p-2 border border-gray-300 rounded-lg'
+          {...register('email')}
+          className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.email && (
-          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-        )}
+        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
       </div>
       <div className="mb-4">
         <Label text="Password" />
         <input
           type="password"
           placeholder="Enter your password"
-          {...register('password')}  
-          className='w-full mb-2 p-2 border border-gray-300 rounded-lg'
+          {...register('password')}
+          className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.password && (
-          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-        )}
+        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
       </div>
-      <Button type="login">Log in</Button>
+      <Button type="submit">Log in</Button>
     </form>
   );
 };
