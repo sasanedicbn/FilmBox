@@ -77,7 +77,7 @@ const Signup = () => {
         />
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
       </div>
-      <Button type="submit">Sign up</Button>
+      <Button type="login">Sign up</Button>
     </form>
   );
 };

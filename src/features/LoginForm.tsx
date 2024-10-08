@@ -51,7 +51,7 @@ const LoginForm = () => {
         />
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
       </div>
-      <Button type="submit">Log in</Button>
+      <Button type="login">Log in</Button>
     </form>
   );
 };
