@@ -4,7 +4,7 @@ import Signup from "./Signup";
 import LoginForm from "./LoginForm";
 
 const Login = () => {
-  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(true);
 
   const openSignUpHandler = () => {
     setOpenSignUp((state) => !state);
