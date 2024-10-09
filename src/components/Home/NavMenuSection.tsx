@@ -1,14 +1,16 @@
 import { signOut } from "firebase/auth";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../../config/firebase";
 
 const NavMenuSection = () => {
+    const navigate = useNavigate()
     const handleLogout = async () => {
         try {
           await signOut(auth);
           toast.success('The user has been successfully logged out!');
+          navigate('/')
         } catch (error) {
           toast.error('Error logging out user!')
         }
