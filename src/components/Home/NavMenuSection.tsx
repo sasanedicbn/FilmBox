@@ -15,6 +15,7 @@ const NavMenuSection = () => {
           toast.error('Error logging out user!')
         }
       };
+      
     return (
         <nav className="bg-gray-800 p-4 w-full max-w-full">
             <ul className="flex justify-between items-center flex-wrap">
