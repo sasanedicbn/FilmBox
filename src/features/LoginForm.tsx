@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../components/UI/Button';
 import Label from '../components/UI/Label';
 import { auth } from '../config/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -19,11 +20,11 @@ const LoginForm = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
-
+ const navigate = useNavigate()
   const onSubmit = async (data) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-  
+      navigate('/home')
       console.log('Korisnik je prijavljen:', userCredential.user);
     } catch (error) {
       console.error('Greška prilikom prijave:', error.message);
