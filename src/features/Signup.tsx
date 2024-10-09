@@ -5,10 +5,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Button from '../components/UI/Button';
 import Label from '../components/UI/Label';
 import { auth } from '../config/firebase';
+import { toast } from 'react-toastify';
 
 const signupSchema = z.object({
   name: z.string().min(1, { message: 'You have to write full name' }),
-  lastname: z.string().min(1, { message: 'You have to write full lastname' }),
+  lastname: z.string().min(1, { message: 'You have to write full last name' }),
   email: z.string().email({ message: 'Invalid email address' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters long' }),
 });
@@ -24,14 +25,14 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+       await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-      console.log('Korisnik je kreiran:', userCredential.user);
+      toast.success('You are successfuly create user');
     } catch (error) {
-      console.error('Greška prilikom kreiranja korisnika:', error.message);
+      toast.error('You can not create new user');
     }
   };
 
