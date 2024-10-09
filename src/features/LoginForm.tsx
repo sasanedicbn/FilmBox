@@ -23,6 +23,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+  
       console.log('Korisnik je prijavljen:', userCredential.user);
     } catch (error) {
       console.error('Greška prilikom prijave:', error.message);
