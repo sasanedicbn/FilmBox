@@ -3,9 +3,23 @@ import Icon from "../UI/Icon";
 import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
+  const fetchSortedFilms = async () => {
+   try{
+    const filmsRef = collection(db, 'films')
+
+    const q = query(filmsRef, orderBy("action", "drama", 'comedy'), orderBy("createdAt", "desc"));
+    
+    const querySnapshot = await getDocs(q);
+
+   } catch(error){
+    console.log(error)
+   }
+  }
   return (
     <div className="bg-gray-800 mx-auto flex items-center justify-between w-[75%] mt-24 p-4 rounded-lg">
       <Input
