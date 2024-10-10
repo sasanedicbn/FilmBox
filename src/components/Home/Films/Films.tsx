@@ -3,12 +3,16 @@ import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "./FilmsDetails";
 import { collection, endBefore, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilms } from "../../../store/slices/filmsSlice";
 
 const Films = () => {
-  const [films, setFilms] = useState([]); 
+  // const [films, setFilms] = useState([]); 
   const [currentPage, setCurrentPage] = useState(null)
   const [lastVisible, setLastVisible] = useState(null);
   const [firstVisible, setFirstVisible] = useState(null)
+  const films = useSelector(state => state.films.films)
+  const dispatch = useDispatch()
 
   const fetchMovies = async (startAfterDoc = null, previous = false) => {
     const coll = collection(db, "films");
@@ -28,7 +32,7 @@ const Films = () => {
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     // console.log('da li je da id2', movies.map((movie) => movie.id2))
-    setFilms(movies); 
+    dispatch(setFilms(movies)); 
 
     const lastVisibleRef = data.docs[data.docs.length - 1];
     setLastVisible(lastVisibleRef);
