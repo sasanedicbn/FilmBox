@@ -13,18 +13,21 @@ const HoverComponent = ({ films }: { films: Film }) => {
 
   const fetchFilmById = async (filmId: string) => {
     try {
-      const filmRef = doc(db, "films", filmId);
-      const filmSnap = await getDoc(filmRef);
-      const filmRefs = doc(db, "testimonialFilms", filmId);
-      const filmSnaps = await getDoc(filmRef);
-      console.log('sa films', filmRef)
-      console.log('sa testimonialFilms', filmRefs)
+      let filmRef = doc(db, "films", filmId);
+      let filmSnap = await getDoc(filmRef);
+  
+      if (!filmSnap.exists()) {
+        filmRef = doc(db, "testimonialFilms", filmId);
+        filmSnap = await getDoc(filmRef);
+      }
+  
       if (filmSnap.exists()) {
         const filmData = { id2: filmSnap.id, ...filmSnap.data() };
         dispatch(setCurrentFilm(filmData));
         navigate(`/home/${filmId}`);
         return filmData;
       } else {
+        toast.error("Film not found.");
         return null;
       }
     } catch (error) {
@@ -32,6 +35,7 @@ const HoverComponent = ({ films }: { films: Film }) => {
       return null;
     }
   };
+  
 
   const handleMarkFilm = () => {
     dispatch(addMarketFilms(films)); 
