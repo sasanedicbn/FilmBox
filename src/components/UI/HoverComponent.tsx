@@ -13,9 +13,12 @@ const HoverComponent = ({ films }: { films: Film }) => {
 
   const fetchFilmById = async (filmId: string) => {
     try {
-      const filmRef = doc(db, "testimonialFilms", filmId);
+      const filmRef = doc(db, "films", filmId);
       const filmSnap = await getDoc(filmRef);
-
+      const filmRefs = doc(db, "testimonialFilms", filmId);
+      const filmSnaps = await getDoc(filmRef);
+      console.log('sa films', filmRef)
+      console.log('sa testimonialFilms', filmRefs)
       if (filmSnap.exists()) {
         const filmData = { id2: filmSnap.id, ...filmSnap.data() };
         dispatch(setCurrentFilm(filmData));

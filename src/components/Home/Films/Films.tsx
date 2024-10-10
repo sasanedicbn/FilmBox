@@ -27,6 +27,7 @@ const Films = () => {
     }
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
+    // console.log('da li je da id2', movies.map((movie) => movie.id2))
     setFilms(movies); 
 
     const lastVisibleRef = data.docs[data.docs.length - 1];
@@ -34,12 +35,12 @@ const Films = () => {
 
     const firstVisibleRef = data.docs[0]
     setFirstVisible(firstVisibleRef)
-    console.log('data.docs[0]', data.docs[0])
+    // console.log('data.docs[0]', data.docs[0])
 
-    console.log('movies', movies);
-    console.log('firstFilms', firstVisible);
+    // console.log('movies', movies);
+    // console.log('firstFilms', firstVisible);
   };
-
+  console.log('ovo gledaj za id2', films.map((film) => film.id2))
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
     await fetchMovies(lastVisible); 
@@ -63,7 +64,7 @@ const Films = () => {
     <div className="max-w-[71rem] mx-auto mt-14">
       <div className="grid grid-cols-4 gap-6">
         {films.map((film) => (
-          <div key={film.id} className="flex flex-col">
+          <div key={film.id2} className="flex flex-col">
             <CardTestimonial testimonialFilms={film} />
             <FilmsDetails films={film} />
           </div>
