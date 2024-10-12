@@ -13,17 +13,19 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [genre, setGenre] = useState<string>("all");
   const dispatch = useDispatch();
   const films = useSelector((state) => state.films.films);
-  console.log("films", films);
+  // console.log("films", films);
+
+
 
   const fetchSortedFilms = async () => {
     try {
       const filmsRef = collection(db, "films");
 
       let q;
-
+     console.log('q', q)
       if (genre === "all") {
         // Ako je žanr "all", prikazujemo sve filmove
-        q = query(filmsRef, orderBy("title", "desc"));
+        q = query(filmsRef, orderBy("title", "asc"));
       } else {
         // Ako je izabran specifičan žanr, filtriramo prema njemu
         q = query(
@@ -34,16 +36,18 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       }
 
       const querySnapshot = await getDocs(q);
+      console.log('querySnapshot', querySnapshot)
+      // ovdje mi vraca svih 100 filmova znaci gore se ono ne uradi kako treba
       const filteredFilms = querySnapshot.docs.map((doc) => {
         const filmData = doc.data();
-        console.log("Film data:", filmData); // Proveravamo kako izgleda svaki dokument
+        // console.log("Film data:", filmData);
         return {
           id: doc.id,
           ...filmData,
         };
       });
 
-      console.log("sortirano kao", genre);
+      // console.log("sortirano kao", genre);
       dispatch(setFilms(filteredFilms));
     } catch (error) {
       console.error("Error fetching films:", error);
