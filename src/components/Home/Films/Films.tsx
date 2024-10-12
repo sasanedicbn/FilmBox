@@ -44,7 +44,7 @@ const Films = () => {
     // console.log('movies', movies);
     // console.log('firstFilms', firstVisible);
   };
-  console.log('ovo gledaj za id2', films.map((film) => film.id2))
+  // console.log('ovo gledaj za id2', films.map((film) => film.id2))
   const fetchNextPage = async () => {
     if (!lastVisible) return; 
     await fetchMovies(lastVisible); 
