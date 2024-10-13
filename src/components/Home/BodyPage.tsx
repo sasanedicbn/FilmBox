@@ -5,7 +5,7 @@ import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../store/slices/filmsSlice";
 
@@ -31,7 +31,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
         q = query(
           filmsRef,
           where("genre", "array-contains", genre), // Pretpostavimo da polje 'genre' sadrži niz žanrova
-          orderBy("title", "desc")
+          orderBy("genre")
         );
       }
 
@@ -48,6 +48,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       });
 
       // console.log("sortirano kao", genre);
+      console.log(filteredFilms)
       dispatch(setFilms(filteredFilms));
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -58,8 +59,11 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = e.target.value;
     setGenre(selectedGenre);
-     fetchSortedFilms(); // Učitaj filmove nakon promene žanra
   };
+
+  useEffect(() => {
+    fetchSortedFilms(); 
+  }, [genre])
 
   return (
     <div className="bg-gray-800 mx-auto flex items-center justify-between max-w-[68rem] mt-24 p-4 rounded-lg">
