@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 
 const FilmsDetails = ({ films }) => {
   return (
-    <div className="py-2 mx-auto w-full text-white  shadow-lg ">
+    <div className="py-2 mx-auto w-[220px] text-white  shadow-lg ">
       <p className="text-[14px] font-semibold">{films.title.toUpperCase()}</p>
       <div className="flex items-center justify-between text-sm text-gray-400">
         <p className="flex items-center">
