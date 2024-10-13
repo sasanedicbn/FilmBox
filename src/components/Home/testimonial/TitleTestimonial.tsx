@@ -6,9 +6,9 @@ const TitleTestimonial = ({ currentIndex, currentFilms, films }:{currentIndex:nu
     const current = currentIndex / currentFilms;
 
     return (
-        <div className="flex justify-between mb-4 mx-6">
-            <p className="text-xl font-medium text-white">Currently trending</p>
-            <div className="flex justify-end gap-1 p-3">
+        <div className="flex md:justify-between flex-col mb-4 mx-auto ">
+            <p className="text-xl text-center md:text-left font-medium text-white">Currently trending</p>
+            <div className="flex justify-end gap-1 p-3 ">
                 {Array.from({ length: totalIndicators }).map((_, index) => (
                     <div
                         key={index}
