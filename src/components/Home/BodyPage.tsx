@@ -11,6 +11,7 @@ import { setFilms } from "../../store/slices/filmsSlice";
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [genre, setGenre] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
 
   const fetchSortedFilms = async () => {
@@ -30,13 +31,17 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       }
 
       const querySnapshot = await getDocs(q);
-      const filteredFilms = querySnapshot.docs.map((doc) => {
-        const filmData = doc.data();
-        return {
-          id: doc.id,
-          ...filmData,
-        };
-      });
+      const filteredFilms = querySnapshot.docs
+        .map((doc) => {
+          const filmData = doc.data();
+          return {
+            id: doc.id,
+            ...filmData,
+          };
+        })
+        .filter((film) =>
+          film.title.toLowerCase().includes(searchTerm.toLowerCase()) 
+        );
 
       dispatch(setFilms(filteredFilms));
     } catch (error) {
@@ -49,9 +54,13 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
     setGenre(selectedGenre);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value); 
+  };
+
   useEffect(() => {
     fetchSortedFilms(); 
-  }, [genre])
+  }, [genre, searchTerm]); 
 
   return (
     <div className="bg-gray-800 mx-auto flex items-center justify-between max-w-[68rem] mt-24 p-4 rounded-lg">
@@ -59,11 +68,9 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
         type="text"
         name="searchFilms"
         placeholder="Search films..."
-        onChange={() => {
-          console.log("onchange");
-        }}
+        onChange={handleSearchChange} 
         styleType="searchFilms"
-        value=""
+        value={searchTerm} 
       />
 
       <div className="flex items-center gap-4">
