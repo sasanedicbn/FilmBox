@@ -25,3 +25,4 @@ const MainPage = () => {
 };
 
 export default MainPage;
+// LEARN TEORY => FRONTEND MASTER
