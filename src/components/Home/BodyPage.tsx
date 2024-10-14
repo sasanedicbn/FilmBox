@@ -63,7 +63,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   }, [genre, searchTerm]); 
 
   return (
-    <div className="bg-gray-800 mx-auto flex items-center justify-between max-w-[68rem] mt-24 p-4 rounded-lg">
+    <div className="bg-gray-800 mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:max-w-[68rem] mt-24 p-4 rounded-lg">
       <Input
         type="text"
         name="searchFilms"

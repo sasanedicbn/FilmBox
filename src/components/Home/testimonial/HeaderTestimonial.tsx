@@ -62,7 +62,7 @@ const HeaderTestimonial = () => {
     };
 
     return (
-        <div className="relative mx-auto overflow-hidden mt-14 max-w-[70rem] px-6">
+        <div className="relative mx-auto overflow-hidden mt-14 max-w-[70rem]  ">
             <TitleTestimonial currentIndex={currentIndex} currentFilms={currentFilms} films={films} />
             <div
                 className="flex transition-transform duration-500 "
