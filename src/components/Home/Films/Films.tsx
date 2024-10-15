@@ -94,3 +94,5 @@ const Films = () => {
 };
 
 export default Films;
+
+// LEARNING ABOUT CLOUSERS  
