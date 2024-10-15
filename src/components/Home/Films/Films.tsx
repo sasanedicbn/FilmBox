@@ -33,12 +33,10 @@ const Films = () => {
     dispatch(setFilms(movies)); 
   
     const lastVisibleRef = data.docs[data.docs.length - 1]; 
-    // console.log('lastVisibleRef', lastVisibleRef);
     setLastVisible(lastVisibleRef);
   
     const firstVisibleRef = data.docs[0]; 
 
-    // console.log('firstVisibleRef OOOOVAJ', firstVisibleRef);
     setFirstVisible(firstVisibleRef);
   
     setCurrentPage((currentPage) => currentPage + 1);
@@ -53,23 +51,19 @@ const Films = () => {
 
     const data = await getDocs(moviesQuery);
 
-    //  console.log('DATA', data)
     if (data.empty) {
       console.log('Nema više podataka');
       return;
     }
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
-    console.log('prethodni okret ->>>>', movies);
 
     dispatch(setFilms(movies));
 
     const lastVisibleRef = data.docs[data.docs.length - 1]; 
-    // console.log('lastVisibleRef', lastVisibleRef);
     setLastVisible(lastVisibleRef);
 
     const firstVisibleRef = data.docs[0]; 
-    // console.log('firstVisibleRef', firstVisibleRef);
     setFirstVisible(firstVisibleRef);
 
     setCurrentPage((currentPage) => currentPage - 1); 
