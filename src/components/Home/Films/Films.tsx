@@ -28,7 +28,6 @@ const Films = () => {
     }
   
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
-    // console.log('prvi okret ->>>>', movies);
   
     dispatch(setFilms(movies)); 
   
@@ -95,4 +94,3 @@ const Films = () => {
 
 export default Films;
 
-// LEARNING ABOUT CLOUSERS  
