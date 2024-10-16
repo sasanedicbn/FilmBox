@@ -3,15 +3,19 @@ import { useSelector } from "react-redux";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 
 const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
+    const [numPagination, setNumPagination] = useState(0)
     const totalFilms = async () => {
         const filmsCount = await fetchTotalFilmsCount()
         console.log('filmsCount',filmsCount)
+        setNumPagination(filmsCount)
     }
     totalFilms()
-    const [activePage, setActivePage] = useState(1); 
+    const [activePage, setActivePage] = useState(0); 
     const films = useSelector((film) => film.films.films)
     // console.log('iz paginacije',films.len)
-    let lengthPagination = 12;
+    let lengthPagination = Math.ceil(numPagination / 12);
+    console.log('numPagination', numPagination)
+    console.log('lengthPagination', lengthPagination)
 
     const handleNext = () => {
         if (activePage < lengthPagination - 1) {
