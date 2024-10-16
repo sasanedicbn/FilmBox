@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Pagination = () => {
+const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
     const [activePage, setActivePage] = useState(1); 
     let lengthPagination = 10;
 
@@ -8,6 +8,7 @@ const Pagination = () => {
         if (activePage < lengthPagination - 1) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
+            fetchNextPage()
         }
     };
 
@@ -15,6 +16,7 @@ const Pagination = () => {
         if (activePage > 0) {
             const prevPage = activePage - 1;
             setActivePage(prevPage);
+            fetchPreviousPage()
         }
     };
 

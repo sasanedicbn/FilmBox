@@ -6,6 +6,7 @@ import { db } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../../store/slices/filmsSlice";
 import { fetchPagination } from "../../../api/paginations";
+import Pagination from "./Pagination";
 
 const Films = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -86,12 +87,13 @@ const Films = () => {
           </div>
         ))}
       </div>
-      <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage}>
+      <Pagination fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage}/>
+      {/* <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage}>
         Previous
       </button>
       <button className="bg-slate-50 mr-4" onClick={fetchNextPage}>
         Next
-      </button>
+      </button> */}
     </div>
   );
 };
