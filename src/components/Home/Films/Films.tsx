@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "./FilmsDetails";
-import { collection, endBefore, getDocs, limit, query, startAfter } from "firebase/firestore";
+import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../../store/slices/filmsSlice";
@@ -17,8 +17,8 @@ const Films = () => {
     const coll = collection(db, "films");
   
     const moviesQuery = lastVisible 
-      ? query(coll, startAfter(lastVisible), limit(12))
-      : query(coll, limit(12)); 
+      ? query(coll, orderBy('rating', 'desc'), startAfter(lastVisible), limit(12))
+      : query(coll, orderBy('rating', 'desc'), limit(12)); 
   
     const data = await getDocs(moviesQuery);
   
@@ -27,26 +27,25 @@ const Films = () => {
       return;
     }
   
-    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
-  
+    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data()}));
     dispatch(setFilms(movies)); 
   
     const lastVisibleRef = data.docs[data.docs.length - 1]; 
     setLastVisible(lastVisibleRef);
   
     const firstVisibleRef = data.docs[0]; 
-
     setFirstVisible(firstVisibleRef);
   
     setCurrentPage((currentPage) => currentPage + 1);
   };
 
-  console.log('firstvisible', firstVisible?.id)
+
+
   const fetchPreviousPage = async () => {
     if (!firstVisible) return; 
 
     const coll = collection(db, "films");
-    const moviesQuery = query(coll, endBefore(firstVisible), limit(12)); 
+    const moviesQuery = query(coll, orderBy('rating', 'desc'), endBefore(firstVisible), limitToLast(12)); 
 
     const data = await getDocs(moviesQuery);
 
@@ -55,8 +54,8 @@ const Films = () => {
       return;
     }
 
-    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
-
+    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data()}));
+    console.log('movies', movies)
     dispatch(setFilms(movies));
 
     const lastVisibleRef = data.docs[data.docs.length - 1]; 
