@@ -20,33 +20,32 @@ const Films = () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);
     dispatch(setFilms(films));
   };
-
   const fetchPage = async (pageIndex) => {
     const coll = collection(db, "films");
-
+  
+    const offset = pageIndex * 12;
+  
     const moviesQuery = query(
-        coll,
-        orderBy('rating', 'desc'),
-        ...(pageIndex > 0 ? [startAfter(lastVisible)] : []), 
-        limit(12)
+      coll,
+      orderBy('rating', 'desc'),
+      limit(12),
+      startAfter(offset > 0 ? lastVisible : null) 
     );
-
+  
     const data = await getDocs(moviesQuery);
     if (data.empty) {
-        console.log('Nema više podataka');
-        return;
+      console.log('Nema više podataka');
+      return;
     }
-
+  
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     dispatch(setFilms(movies));
-
+  
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);
-
+  
     setCurrentPage(pageIndex);
-};
-
-
+  };
   
   const fetchNextPage = async () => {
     const coll = collection(db, "films");
@@ -71,7 +70,6 @@ const Films = () => {
   
     setCurrentPage((currentPage) => currentPage + 1);
   };
-
 
 
   const fetchPreviousPage = async () => {

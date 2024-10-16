@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 
-const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
-    const [numPagination, setNumPagination] = useState(0)
-    const [activePage, setActivePage] = useState(0); 
-    let lengthPagination = Math.ceil(numPagination / 12);
-    
-    const totalFilms = async () => {
-        const filmsCount = await fetchTotalFilmsCount()
-        console.log('filmsCount',filmsCount)
-        setNumPagination(filmsCount)
-    }
-    totalFilms()
+const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
+    const [numPagination, setNumPagination] = useState(0);
+    const [activePage, setActivePage] = useState(0);
 
+    const lengthPagination = useMemo(() => Math.ceil(numPagination / 12), [numPagination]);
+
+    useEffect(() => {
+        const totalFilms = async () => {
+            const filmsCount = await fetchTotalFilmsCount();
+            setNumPagination(filmsCount);
+        };
+        totalFilms();
+    }, []);
+
+    const handlePageChange = (index) => {
+        setActivePage(index);
+        fetchPage(index); 
+    };
 
     const handleNext = () => {
         if (activePage < lengthPagination - 1) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
-            fetchNextPage()
+            fetchNextPage();
         }
     };
 
@@ -26,13 +32,8 @@ const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
         if (activePage > 0) {
             const prevPage = activePage - 1;
             setActivePage(prevPage);
-            fetchPreviousPage()
+            fetchPreviousPage(); 
         }
-    };
-    
-    const handlePageClick = (index) => {
-        setActivePage(index);
-        fetchPage(index);
     };
 
     return (
@@ -49,7 +50,7 @@ const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
                     key={index}
                     className={`w-8 h-8 flex justify-center items-center rounded-full cursor-pointer font-bold transition-all duration-300 
                     ${activePage === index ? 'bg-cyan-600 text-white' : 'bg-cyan-200 text-black hover:bg-cyan-400'}`}
-                    onClick={() => handlePageClick(index)}
+                    onClick={() => handlePageChange(index)}
                 >
                     {index + 1}
                 </div>
