@@ -1,41 +1,20 @@
-
-
-import { collection, getDocs, query, orderBy, limit, startAfter } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-let lastVisible = null; 
-
-export const paginations = async () => {
-    const testimonialCollection = collection(db, "films");
-    
-    const testimonialQuery = query(
-        testimonialCollection,
-        orderBy('id'),  
-        limit(12),
-        ...(lastVisible ? [startAfter(lastVisible)] : []) 
-    );
-
-    try {
-        const testimonialSnapshot = await getDocs(testimonialQuery);
-        console.log(testimonialSnapshot, 'testimonialSnapshot')
-
-        if (!testimonialSnapshot.empty) {
-            lastVisible = testimonialSnapshot.docs[testimonialSnapshot.docs.length - 1];
-        }
-
-        const testimonialList = testimonialSnapshot.docs.map((doc) => ({
-            id2: doc.id,
-            ...doc.data(),
-        }));
-
-        console.log('Paginated Testimonials:', testimonialList);
-
-        if (testimonialSnapshot.size < 12) {
-            console.log("Nema više dokumenata za prikaz.");
-        }
-
-        return testimonialList; 
-    } catch (error) {
-        console.error("Greška prilikom dohvatanja dokumenata: ", error);
-    }
-};
+export const fetchPagination = async (setFirstVisible, setLastVisible) => {
+    const coll = collection(db, "films");
+    const moviesQuery = query(coll, orderBy('rating', 'desc'), limit(12));
+  
+    const data = await getDocs(moviesQuery);
+  
+    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
+  
+    const lastVisibleRef = data.docs[data.docs.length - 1];
+    setLastVisible(lastVisibleRef);
+  
+    const firstVisibleRef = data.docs[0];
+    setFirstVisible(firstVisibleRef);
+  
+    return movies;
+  };
+  

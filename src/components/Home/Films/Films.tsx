@@ -5,6 +5,7 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../../store/slices/filmsSlice";
+import { fetchPagination } from "../../../api/paginations";
 
 const Films = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -13,12 +14,16 @@ const Films = () => {
   const films = useSelector(state => state.films.films);
   const dispatch = useDispatch();
 
+
+  const fetchPaginations = async () => {
+    const films = await fetchPagination(setFirstVisible, setLastVisible);
+    dispatch(setFilms(films));
+  };
+  
   const fetchNextPage = async () => {
     const coll = collection(db, "films");
   
-    const moviesQuery = lastVisible 
-      ? query(coll, orderBy('rating', 'desc'), startAfter(lastVisible), limit(12))
-      : query(coll, orderBy('rating', 'desc'), limit(12)); 
+    const moviesQuery =  query(coll, orderBy('rating', 'desc'), startAfter(lastVisible), limit(12))
   
     const data = await getDocs(moviesQuery);
   
@@ -68,7 +73,7 @@ const Films = () => {
   };
 
   useEffect(() => {
-    fetchNextPage(); 
+    fetchPaginations()
   }, []);
 
   return (

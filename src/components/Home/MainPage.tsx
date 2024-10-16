@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { paginations } from "../../api/paginations";
 import BodyPage from "./BodyPage";
 import BookMarked from "./BookMarked/BookMarked";
 import Films from "./Films/Films";
@@ -17,9 +16,6 @@ const MainPage = () => {
       <HeaderTestimonial />
       <BodyPage openClickedFilms={openItem} openFilms={openFilms} />
       {openFilms ? <Films /> : <BookMarked />}
-      <button className="bg-cyan-400" onClick={() => paginations()}>
-        PAGINATION
-      </button>
     </div>
   );
 };
