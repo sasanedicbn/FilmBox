@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 
-const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
+const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
     const [numPagination, setNumPagination] = useState(0)
     const totalFilms = async () => {
         const filmsCount = await fetchTotalFilmsCount()
@@ -49,6 +49,7 @@ const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
                     ${activePage === index ? 'bg-cyan-600 text-white' : 'bg-cyan-200 text-black hover:bg-cyan-400'}`}
                     onClick={() => {
                         setActivePage(index); 
+                        
                     }}
                 >
                     {index + 1}

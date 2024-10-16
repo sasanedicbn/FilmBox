@@ -20,6 +20,28 @@ const Films = () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);
     dispatch(setFilms(films));
   };
+
+  const fetchPage = async (pageIndex) => {
+    const coll = collection(db, "films");
+    const offset = pageIndex * 12;
+    const moviesQuery = query(coll, orderBy('rating', 'desc'), limit(12), startAfter(offset));
+
+    const data = await getDocs(moviesQuery);
+    if (data.empty) {
+      console.log('Nema više podataka');
+      return;
+    }
+
+    const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
+    dispatch(setFilms(movies));
+
+    const lastVisibleRef = data.docs[data.docs.length - 1];
+    setLastVisible(lastVisibleRef);
+    const firstVisibleRef = data.docs[0];
+    setFirstVisible(firstVisibleRef);
+
+    setCurrentPage(pageIndex);
+  };
   
   const fetchNextPage = async () => {
     const coll = collection(db, "films");
@@ -87,7 +109,7 @@ const Films = () => {
           </div>
         ))}
       </div>
-      <Pagination fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage}/>
+      <Pagination fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage} fetchPage={fetchPage}/>
       {/* <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage}>
         Previous
       </button>
