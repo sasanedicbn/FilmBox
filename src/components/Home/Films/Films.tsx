@@ -40,7 +40,6 @@ const Films = () => {
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     dispatch(setFilms(movies));
 
-    // Ažuriraj poslednje i prvo vidljive dokumente.
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);
 
@@ -116,12 +115,6 @@ const Films = () => {
         ))}
       </div>
       <Pagination fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage} fetchPage={fetchPage}/>
-      {/* <button className="bg-slate-50 mr-4" onClick={fetchPreviousPage}>
-        Previous
-      </button>
-      <button className="bg-slate-50 mr-4" onClick={fetchNextPage}>
-        Next
-      </button> */}
     </div>
   );
 };
