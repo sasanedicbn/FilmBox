@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "./FilmsDetails";
-import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, startAfter } from "firebase/firestore";
+import { collection, endAt, endBefore, getDocs, limit, limitToLast, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../../store/slices/filmsSlice";
@@ -23,25 +23,31 @@ const Films = () => {
 
   const fetchPage = async (pageIndex) => {
     const coll = collection(db, "films");
-    const offset = pageIndex * 12;
-    const moviesQuery = query(coll, orderBy('rating', 'desc'), limit(12), startAfter(offset));
+
+    const moviesQuery = query(
+        coll,
+        orderBy('rating', 'desc'),
+        ...(pageIndex > 0 ? [startAfter(lastVisible)] : []), 
+        limit(12)
+    );
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {
-      console.log('Nema više podataka');
-      return;
+        console.log('Nema više podataka');
+        return;
     }
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     dispatch(setFilms(movies));
 
-    const lastVisibleRef = data.docs[data.docs.length - 1];
-    setLastVisible(lastVisibleRef);
-    const firstVisibleRef = data.docs[0];
-    setFirstVisible(firstVisibleRef);
+    // Ažuriraj poslednje i prvo vidljive dokumente.
+    setLastVisible(data.docs[data.docs.length - 1]);
+    setFirstVisible(data.docs[0]);
 
     setCurrentPage(pageIndex);
-  };
+};
+
+
   
   const fetchNextPage = async () => {
     const coll = collection(db, "films");
