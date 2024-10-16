@@ -1,6 +1,7 @@
 import { FaStar } from "react-icons/fa";
+import { Film } from "../../../types/types";
 
-const FilmsDetails = ({ films }) => {
+const FilmsDetails = ({ films }:{films:Film}) => {
   return (
     <div className="py-2 mx-auto w-[220px] text-white  shadow-lg ">
       <p className="text-[14px] font-semibold">{films.title.toUpperCase()}</p>
