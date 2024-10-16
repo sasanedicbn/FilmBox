@@ -1,8 +1,17 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 
 const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
+    const totalFilms = async () => {
+        const filmsCount = await fetchTotalFilmsCount()
+        console.log('filmsCount',filmsCount)
+    }
+    totalFilms()
     const [activePage, setActivePage] = useState(1); 
-    let lengthPagination = 10;
+    const films = useSelector((film) => film.films.films)
+    // console.log('iz paginacije',films.len)
+    let lengthPagination = 12;
 
     const handleNext = () => {
         if (activePage < lengthPagination - 1) {
@@ -35,8 +44,7 @@ const Pagination = ({fetchNextPage, fetchPreviousPage}) => {
                     className={`w-8 h-8 flex justify-center items-center rounded-full cursor-pointer font-bold transition-all duration-300 
                     ${activePage === index ? 'bg-cyan-600 text-white' : 'bg-cyan-200 text-black hover:bg-cyan-400'}`}
                     onClick={() => {
-                        setActivePage(index);
-                        fetchFilms(index);  
+                        setActivePage(index); 
                     }}
                 >
                     {index + 1}
