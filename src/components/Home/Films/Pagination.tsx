@@ -32,6 +32,11 @@ const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
             fetchPreviousPage()
         }
     };
+    
+    const handlePageClick = (index) => {
+        setActivePage(index);
+        fetchPage(index);
+    };
 
     return (
         <div className="flex justify-center mt-6 space-x-2">
@@ -47,10 +52,7 @@ const Pagination = ({fetchNextPage, fetchPreviousPage, fetchPage}) => {
                     key={index}
                     className={`w-8 h-8 flex justify-center items-center rounded-full cursor-pointer font-bold transition-all duration-300 
                     ${activePage === index ? 'bg-cyan-600 text-white' : 'bg-cyan-200 text-black hover:bg-cyan-400'}`}
-                    onClick={() => {
-                        setActivePage(index); 
-                        
-                    }}
+                    onClick={() => handlePageClick(index)}
                 >
                     {index + 1}
                 </div>
