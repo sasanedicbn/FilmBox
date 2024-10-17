@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
+import PaginationWrapper from "../../UI/PaginationWrapper";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     const [numPagination, setNumPagination] = useState(0);
@@ -50,7 +51,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     };
 
     return (
-        <div className="flex justify-center mt-6 space-x-2">
+        <PaginationWrapper type="bigNumberPagination">
             <Button onClick={handlePrevious} disabled={activePage === 0} type="pagination" >
                <AiOutlineLeft />
             </Button>
@@ -58,7 +59,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
             <Button onClick={handleNext} disabled={activePage === lengthPagination} type="pagination" >
               <AiOutlineRight />
             </Button>
-        </div>
+        </PaginationWrapper>
     );
 };
 

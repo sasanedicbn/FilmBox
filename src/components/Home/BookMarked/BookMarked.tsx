@@ -5,6 +5,7 @@ import { useState } from "react";
 import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
+import PaginationWrapper from "../../UI/PaginationWrapper";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
@@ -45,7 +46,7 @@ const BookMarked = () => {
           <p className="text-center pl-12 text-xl text-gray-400">No marked films.</p>
         )}
       </div>
-      <div className="w-1/4 flex justify-between my-8 mx-auto">
+      <PaginationWrapper type="smallNumberPagination">
         <Button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} type="pagination" >
           <AiOutlineLeft />
         </Button>
@@ -57,7 +58,7 @@ const BookMarked = () => {
         <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} type="pagination" >
           <AiOutlineRight />
         </Button>
-      </div>
+      </PaginationWrapper>
     </div>
   );
 };
