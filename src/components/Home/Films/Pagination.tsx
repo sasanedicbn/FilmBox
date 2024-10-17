@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 import { useSelector } from "react-redux";
 import LengthPagination from "../../UI/LengthPagination";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     const [numPagination, setNumPagination] = useState(0);
@@ -54,7 +55,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
                 onClick={handlePrevious}
                 disabled={activePage === 0} 
             >
-                Previous
+                <AiOutlineLeft />
             </button>
              <LengthPagination lengthPagination={lengthPagination} activePage={activePage} handlePageChange={handlePageChange}/>
             <button 
@@ -62,7 +63,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
                 onClick={handleNext}
                 disabled={activePage === lengthPagination}
             >
-                Next
+                <AiOutlineRight />
             </button>
         </div>
     );

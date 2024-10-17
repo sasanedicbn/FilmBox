@@ -3,6 +3,8 @@ import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "../Films/FilmsDetails";
 import { useState } from "react";
 import LengthPagination from "../../UI/LengthPagination";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import Button from "../../UI/Button";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
@@ -43,26 +45,18 @@ const BookMarked = () => {
           <p className="text-center pl-12 text-xl text-gray-400">No marked films.</p>
         )}
       </div>
-      <div className="w-2/6 flex justify-between my-8 mx-auto">
-        <button
-          onClick={handlePreviousMarkedFilms}
-          disabled={currentPage === 1}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Previous
-        </button>
+      <div className="w-1/4 flex justify-between my-8 mx-auto">
+        <Button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} type="pagination" >
+          <AiOutlineLeft />
+        </Button>
         <LengthPagination
           lengthPagination={paginationFilms}
           activePage={currentPage}
           handlePageChange={setCurrentPage}
         />
-        <button
-          onClick={handleNextMarkedFilms}
-          disabled={indexOfLastFilm >= bookedFilm.length}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Next
-        </button>
+        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} type="pagination" >
+          <AiOutlineRight />
+        </Button>
       </div>
     </div>
   );
