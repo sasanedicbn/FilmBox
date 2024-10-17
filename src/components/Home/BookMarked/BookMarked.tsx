@@ -9,7 +9,6 @@ import PaginationWrapper from "../../UI/PaginationWrapper";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
-  console.log('bookedFilm iz selectora', bookedFilm);
   
   const [currentPage, setCurrentPage] = useState(1); 
   const filmsPerPage = 12; 

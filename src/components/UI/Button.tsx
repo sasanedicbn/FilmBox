@@ -14,10 +14,3 @@ const Button = ({ type, children, onClick, disabled = false }) => {
 };
 
 export default Button;
-{/* <button
-onClick={handleNextMarkedFilms}
-disabled={indexOfLastFilm >= bookedFilm.length}
-className="bg-blue-500 text-white px-4 py-2 rounded"
->
-<AiOutlineRight />
-</button> */}
