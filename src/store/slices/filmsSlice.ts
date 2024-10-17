@@ -15,6 +15,9 @@ export const filmsSlice = createSlice({
     setFilms(state, action){
         state.films = action.payload
     },
+    setBookedFilms(state, action){
+        state.markedFilms = action.payload
+    },
     getTestimonialFilms(state, action) {
       state.testimonialFilms = action.payload
     },

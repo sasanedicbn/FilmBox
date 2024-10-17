@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "../Films/FilmsDetails";
+import Pagination from "../Films/Pagination";
+import useFilmsPagination from "../../custom-hook/useFilmsPagination";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
   console.log('bookedFilm iz selectora', bookedFilm);
+ 
+  const {fetchPage,fetchNextPage, fetchPreviousPage,} = useFilmsPagination()
 
   return (
     <div className="max-w-[71rem] mx-auto mt-14">
@@ -20,6 +24,7 @@ const BookMarked = () => {
           <p className="text-center pl-12 text-xl text-gray-400">No marked films.</p>
         )}
       </div>
+      <Pagination fetchNextPage={fetchNextPage} fetchPage={fetchPage} fetchPreviousPage={fetchPreviousPage}/>
     </div>
   );
 };
