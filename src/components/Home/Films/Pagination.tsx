@@ -10,6 +10,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     useEffect(() => {
         const totalFilms = async () => {
             const filmsCount = await fetchTotalFilmsCount();
+            console.log('filmsCount', filmsCount)
             setNumPagination(filmsCount);
         };
         totalFilms();

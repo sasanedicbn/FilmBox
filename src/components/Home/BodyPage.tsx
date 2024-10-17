@@ -3,17 +3,20 @@ import Icon from "../UI/Icon";
 import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilms } from "../../store/slices/filmsSlice";
+import Pagination from "./Films/Pagination";
+import useFilmsPagination from "../custom-hook/useFilmsPagination";
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [genre, setGenre] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
 
+  // const {fetchNextPage, fetchPreviousPage, fetchPage} = useFilmsPagination()
   const fetchSortedFilms = async () => {
     try {
       const filmsRef = collection(db, "films");
@@ -21,12 +24,13 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       let q;
 
       if (genre === "all") {
-        q = query(filmsRef, orderBy("title", "asc"));
+        q = query(filmsRef, orderBy("title", "asc"), limit(12));
       } else {
         q = query(
           filmsRef,
           where("genre", "array-contains", genre), 
-          orderBy("genre")
+          orderBy("genre"),
+          limit(12),
         );
       }
 
@@ -43,6 +47,8 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           film.title.toLowerCase().includes(searchTerm.toLowerCase()) 
         );
 
+
+        console.log('filteredFilms on select', filteredFilms)
       dispatch(setFilms(filteredFilms));
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -99,6 +105,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
+      {/* <Pagination fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage} fetchPage={fetchSortedFilms}/> */}
     </div>
   );
 };
