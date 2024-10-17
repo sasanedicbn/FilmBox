@@ -13,7 +13,6 @@ const useFilmsPagination = () => {
 
   const fetchPaginations = async () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);
-    console.log('films iz fetchPaginations', films)
     dispatch(setFilms(films));
   };
 

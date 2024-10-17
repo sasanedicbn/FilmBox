@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Films = () => {
   const films = useSelector((state) => state.films.films);
 
-  const { fetchNextPage, fetchPreviousPage, fetchPage } = useFilmsPagination();
+  const { fetchNextPage, fetchPreviousPage, fetchPage, currentPage } = useFilmsPagination();
 
   return (
     <div className="max-w-[71rem] mx-auto mt-14">

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "../Films/FilmsDetails";
 import { useState } from "react";
+import Pagination from "../Films/Pagination";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
@@ -44,12 +45,18 @@ const BookMarked = () => {
         )}
       </div>
       <div className="flex justify-between mt-4">
-        <button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} className="bg-blue-500 text-white px-4 py-2 rounded">
+        {/* <button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} className="bg-blue-500 text-white px-4 py-2 rounded">
           Previous
         </button>
         <button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} className="bg-blue-500 text-white px-4 py-2 rounded">
           Next
-        </button>
+        </button> */}
+        <Pagination
+       fetchNextPage={handleNextMarkedFilms}
+       fetchPreviousPage={handlePreviousMarkedFilms}
+       totalItems={bookedFilm.length}
+       itemsPerPage={filmsPerPage}
+        />
       </div>
     </div>
   );
