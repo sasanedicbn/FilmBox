@@ -2,19 +2,18 @@ import { useSelector } from "react-redux";
 import CardTestimonial from "../testimonial/CardTestimonial";
 import FilmsDetails from "../Films/FilmsDetails";
 import { useState } from "react";
-import Pagination from "../Films/Pagination";
+import LengthPagination from "../../UI/LengthPagination";
 
 const BookMarked = () => {
   const bookedFilm = useSelector((state) => state.films.markedFilms);
   console.log('bookedFilm iz selectora', bookedFilm);
   
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1); 
   const filmsPerPage = 12; 
+  const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
 
-  const indexOfLastFilm = currentPage * filmsPerPage; 
-  const indexOfFirstFilm = indexOfLastFilm - filmsPerPage; 
-  console.log(indexOfFirstFilm)
-  console.log(indexOfFirstFilm)
+  const indexOfLastFilm = currentPage * filmsPerPage;
+  const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
   
   const currentFilms = bookedFilm.slice(indexOfFirstFilm, indexOfLastFilm);
 
@@ -36,7 +35,7 @@ const BookMarked = () => {
         {currentFilms.length > 0 ? (
           currentFilms.map((film) => (
             <div key={film.id} className="flex flex-col">
-              <CardTestimonial key={film.id2} testimonialFilms={film} />
+              <CardTestimonial testimonialFilms={film} />
               <FilmsDetails films={film} />
             </div>
           ))
@@ -45,21 +44,29 @@ const BookMarked = () => {
         )}
       </div>
       <div className="flex justify-between mt-4">
-        {/* <button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button
+          onClick={handlePreviousMarkedFilms}
+          disabled={currentPage === 1}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
           Previous
         </button>
-        <button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Next
-        </button> */}
-        <Pagination
-       fetchNextPage={handleNextMarkedFilms}
-       fetchPreviousPage={handlePreviousMarkedFilms}
-       totalItems={bookedFilm.length}
-       itemsPerPage={filmsPerPage}
+        <LengthPagination
+          lengthPagination={paginationFilms}
+          activePage={currentPage}
+          handlePageChange={setCurrentPage}
         />
+        <button
+          onClick={handleNextMarkedFilms}
+          disabled={indexOfLastFilm >= bookedFilm.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
 };
 
 export default BookMarked;
+

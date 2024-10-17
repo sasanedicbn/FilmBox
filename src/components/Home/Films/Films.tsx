@@ -23,6 +23,7 @@ const Films = () => {
         fetchNextPage={fetchNextPage}
         fetchPreviousPage={fetchPreviousPage}
         fetchPage={fetchPage}
+        // numPagination={}
       />
     </div>
   );
