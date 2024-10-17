@@ -3,6 +3,7 @@ import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
 import { useSelector } from "react-redux";
 import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import Button from "../../UI/Button";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     const [numPagination, setNumPagination] = useState(0);
@@ -50,21 +51,13 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
 
     return (
         <div className="flex justify-center mt-6 space-x-2">
-            <button 
-                className="bg-slate-100" 
-                onClick={handlePrevious}
-                disabled={activePage === 0} 
-            >
-                <AiOutlineLeft />
-            </button>
+            <Button onClick={handlePrevious} disabled={activePage === 0} type="pagination" >
+               <AiOutlineLeft />
+            </Button>
              <LengthPagination lengthPagination={lengthPagination} activePage={activePage} handlePageChange={handlePageChange}/>
-            <button 
-                className="bg-slate-100" 
-                onClick={handleNext}
-                disabled={activePage === lengthPagination}
-            >
-                <AiOutlineRight />
-            </button>
+            <Button onClick={handleNext} disabled={activePage === lengthPagination} type="pagination" >
+              <AiOutlineRight />
+            </Button>
         </div>
     );
 };
