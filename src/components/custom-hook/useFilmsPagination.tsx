@@ -13,6 +13,7 @@ const useFilmsPagination = () => {
 
   const fetchPaginations = async () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);
+    console.log('films iz fetchPaginations', films)
     dispatch(setFilms(films));
   };
 
@@ -59,6 +60,7 @@ const useFilmsPagination = () => {
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     dispatch(setFilms(movies));
+    
 
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);

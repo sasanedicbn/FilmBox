@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
+import { useSelector } from "react-redux";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     const [numPagination, setNumPagination] = useState(0);
@@ -7,6 +8,13 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
 
     const lengthPagination = useMemo(() => Math.ceil(numPagination / 12), [numPagination]);
 
+    // const fetchBookedFilms = () => {
+    //     setNumPagination(12)
+    //     const bookedFilms = useSelector(state => state.films.bookedFilm)
+    //     if(bookedFilms > numPagination){
+    //       setNumPagination(lengthPagination)
+    //     }
+    // }
     useEffect(() => {
         const totalFilms = async () => {
             const filmsCount = await fetchTotalFilmsCount();

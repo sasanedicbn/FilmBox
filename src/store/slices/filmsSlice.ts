@@ -39,6 +39,6 @@ export const filmsSlice = createSlice({
   },
 });
 
-export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms } = filmsSlice.actions;
+export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms } = filmsSlice.actions;
 
 export default filmsSlice.reducer;
