@@ -43,7 +43,7 @@ const BookMarked = () => {
           <p className="text-center pl-12 text-xl text-gray-400">No marked films.</p>
         )}
       </div>
-      <div className="flex justify-between mt-4">
+      <div className="w-2/6 flex justify-between mt-4">
         <button
           onClick={handlePreviousMarkedFilms}
           disabled={currentPage === 1}

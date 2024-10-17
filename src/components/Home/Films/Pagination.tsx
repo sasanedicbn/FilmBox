@@ -5,7 +5,7 @@ import LengthPagination from "../../UI/LengthPagination";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     const [numPagination, setNumPagination] = useState(0);
-    const [activePage, setActivePage] = useState(0);
+    const [activePage, setActivePage] = useState(1);
     const numMarkedFilms = useSelector((state) => state.films.bookedFilm)
     
     // const lengthPagination = useMemo(() => Math.ceil(numPagination / 12), [numPagination]);
@@ -32,7 +32,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
     };
 
     const handleNext = () => {
-        if (activePage < lengthPagination - 1) {
+        if (activePage < lengthPagination ) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
             fetchNextPage();
@@ -60,7 +60,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
             <button 
                 className="bg-slate-100" 
                 onClick={handleNext}
-                disabled={activePage === lengthPagination - 1}
+                disabled={activePage === lengthPagination}
             >
                 Next
             </button>
