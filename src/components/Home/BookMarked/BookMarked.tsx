@@ -6,9 +6,11 @@ import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
 import PaginationWrapper from "../../UI/PaginationWrapper";
+import { RootState } from "../../../store/slices/filmsSlice";
+import { Film } from "../../../types/types";
 
 const BookMarked = () => {
-  const bookedFilm = useSelector((state) => state.films.markedFilms);
+  const bookedFilm = useSelector((state:RootState) => state.films.markedFilms);
   
   const [currentPage, setCurrentPage] = useState(1); 
   const filmsPerPage = 12; 
@@ -35,7 +37,7 @@ const BookMarked = () => {
     <div className="max-w-[71rem] mx-auto mt-14">
       <div className="grid grid-cols-4 gap-6">
         {currentFilms.length > 0 ? (
-          currentFilms.map((film) => (
+          currentFilms.map((film:Film) => (
             <div key={film.id} className="flex flex-col">
               <CardTestimonial testimonialFilms={film} />
               <FilmsDetails films={film} />
