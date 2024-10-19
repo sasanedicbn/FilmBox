@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import store from '../store';
 
 const initialState = {
   films: [],
@@ -39,6 +40,7 @@ export const filmsSlice = createSlice({
   },
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms } = filmsSlice.actions;
 
 export default filmsSlice.reducer;
