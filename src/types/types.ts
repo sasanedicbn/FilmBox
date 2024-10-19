@@ -32,7 +32,14 @@ export type Film = {
     trailer: string,
     writers: string[],
   }
+
 export type BodyPageProps = {
   openClickedFilms: () => void;
   openFilms: boolean;
+}
+
+export type paginationProps = {
+  fetchNextPage:  () => Promise<void>;
+  fetchPreviousPage: () => Promise<void>;
+  fetchPage: (pageIndex: number) => Promise<void>;
 }

@@ -1,25 +1,16 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { fetchTotalFilmsCount } from "../../../api/fetchTotalFIlmsCount";
-import { useSelector } from "react-redux";
 import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
 import PaginationWrapper from "../../UI/PaginationWrapper";
 
-const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
+const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationProps) => {
     const [numPagination, setNumPagination] = useState(0);
     const [activePage, setActivePage] = useState(1);
-    const numMarkedFilms = useSelector((state) => state.films.bookedFilm)
     
-    // const lengthPagination = useMemo(() => Math.ceil(numPagination / 12), [numPagination]);
     const lengthPagination =  Math.ceil(numPagination / 12)
-    // const fetchBookedFilms = () => {
-    //     setNumPagination(12)
-    //     const bookedFilms = useSelector(state => state.films.bookedFilm)
-    //     if(bookedFilms > numPagination){
-    //       setNumPagination(lengthPagination)
-    //     }
-    // }
+
     useEffect(() => {
         const totalFilms = async () => {
             const filmsCount = await fetchTotalFilmsCount();
@@ -29,7 +20,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }) => {
         totalFilms();
     }, []);
 
-    const handlePageChange = (index) => {
+    const handlePageChange = (index:number) => {
         setActivePage(index);
         fetchPage(index); 
     };
