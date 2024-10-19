@@ -6,9 +6,8 @@ import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
 
 const useFilmsPagination = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [lastVisible, setLastVisible] = useState(null);
-  const [firstVisible, setFirstVisible] = useState(null);
+  const [lastVisible, setLastVisible] = useState<null | any>(null);
+  const [firstVisible, setFirstVisible] = useState<null | any>(null);
   const dispatch = useDispatch();
 
   const fetchPaginations = async () => {
@@ -16,7 +15,7 @@ const useFilmsPagination = () => {
     dispatch(setFilms(films));
   };
 
-  const fetchPage = async (pageIndex) => {
+  const fetchPage = async (pageIndex:any) => {
     const coll = collection(db, "films");
     const offset = pageIndex * 12;
 
@@ -38,7 +37,6 @@ const useFilmsPagination = () => {
 
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);
-    setCurrentPage(pageIndex);
   };
 
   const fetchNextPage = async () => {
@@ -63,7 +61,6 @@ const useFilmsPagination = () => {
 
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);
-    setCurrentPage((currentPage) => currentPage + 1);
   };
 
   const fetchPreviousPage = async () => {
@@ -89,7 +86,6 @@ const useFilmsPagination = () => {
 
     setLastVisible(data.docs[data.docs.length - 1]);
     setFirstVisible(data.docs[0]);
-    setCurrentPage((currentPage) => currentPage - 1);
   };
 
   useEffect(() => {
