@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/slices/filmsSlice";
 
 const DetailsSingleFilms = () => {
-  const film = useSelector((state) => state.films?.currentFilm);
+  const film = useSelector((state:RootState) => state.films?.currentFilm);
+
 
   return (
     <div className="mt-8 text-left">
       <p className="text-lg font-semibold">Genres:</p>
       <div className="flex gap-2 my-2">
-        {film.genre?.map((genre, index) => (
+        {film.genre?.map((genre:string[], index:number) => (
           <span key={index} className="text-sm bg-gray-700 px-3 py-1 rounded-lg">{genre}</span>
         ))}
       </div>

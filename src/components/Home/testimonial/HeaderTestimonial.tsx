@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CardTestimonial from "./CardTestimonial";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TitleTestimonial from "./TitleTestimonial";
+import { Film } from "../../../types/types";
 
 const HeaderTestimonial = () => {
     const [films, setFilms] = useState([]);
@@ -71,7 +72,7 @@ const HeaderTestimonial = () => {
                 }}
             >
                 {films.length > 0 ? (
-                    films.map((film) => (
+                    films.map((film:Film) => (
                         <div
                             className="flex-shrink-0 "
                             style={{ flex: `0 0 ${100 / currentFilms}%` }}

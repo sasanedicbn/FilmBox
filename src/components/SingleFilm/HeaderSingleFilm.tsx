@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/slices/filmsSlice";
 
 const HeaderSingleFilm = () => {
-  const film = useSelector((state) => state.films?.currentFilm); 
+  const film = useSelector((state:RootState) => state.films?.currentFilm); 
 
   return (
     <div className="flex justify-between mt-4">
