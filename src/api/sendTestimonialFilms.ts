@@ -1,8 +1,9 @@
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { toast } from 'react-toastify';
+import { Film } from '../types/types';
 
-export const sendTestimonialFilms = async (testimonialFilms) => {
+export const sendTestimonialFilms = async (testimonialFilms:Film[]) => {
   try {
     if(testimonialFilms){
         for(const testimonialfilm of testimonialFilms){
