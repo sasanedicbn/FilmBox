@@ -1,7 +1,7 @@
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-export const fetchPagination = async (setFirstVisible, setLastVisible) => {
+export const fetchPagination = async (setFirstVisible:React.Dispatch<React.SetStateAction<any | null>> , setLastVisible: React.Dispatch<React.SetStateAction<any | null>>) => {
     const coll = collection(db, "films");
     const moviesQuery = query(coll, orderBy('rating', 'desc'), limit(12));
   
