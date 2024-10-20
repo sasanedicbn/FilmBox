@@ -15,7 +15,7 @@ const useFilmsPagination = () => {
     dispatch(setFilms(films));
   };
 
-  const fetchPage = async (pageIndex:any) => {
+  const fetchPage = async (pageIndex:number) => {
     const coll = collection(db, "films");
     const offset = pageIndex * 12;
 

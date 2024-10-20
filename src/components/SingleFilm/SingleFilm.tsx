@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import HeaderSingleFilm from './HeaderSingleFilm';
 import DetailsSingleFilms from './DetailsSingleFilm';
 import Spinner from '../UI/Spinner';
+import { RootState } from '../../store/slices/filmsSlice';
 
 const SingleFilm = () => {
-  const film = useSelector((state) => state.films?.currentFilm); 
+  const film = useSelector((state:RootState) => state.films?.currentFilm); 
 
   if (!film) {
     return <Spinner />;

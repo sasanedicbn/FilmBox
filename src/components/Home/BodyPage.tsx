@@ -3,22 +3,22 @@ import Icon from "../UI/Icon";
 import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
-import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilms } from "../../store/slices/filmsSlice";
-
+import Pagination from "./Films/Pagination";
+import useFilmsPagination from "../custom-hook/useFilmsPagination";
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [genre, setGenre] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
+  const { fetchPage, fetchNextPage, fetchPreviousPage } = useFilmsPagination(); // Koristite hook
 
   const fetchSortedFilms = async () => {
+    // Ova funkcija se može prilagoditi ili izmeniti prema potrebi
     try {
       const filmsRef = collection(db, "films");
-
       let q;
 
       if (genre === "all") {
@@ -26,9 +26,8 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       } else {
         q = query(
           filmsRef,
-          where("genre", "array-contains", genre), 
+          where("genre", "array-contains", genre),
           orderBy("genre"),
-          limit(12),
         );
       }
 
@@ -42,11 +41,9 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           };
         })
         .filter((film) =>
-          film.title.toLowerCase().includes(searchTerm.toLowerCase()) 
+          film.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-
-        console.log('filteredFilms on select', filteredFilms)
       dispatch(setFilms(filteredFilms));
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -59,7 +56,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value); 
+    setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
@@ -72,16 +69,13 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
         type="text"
         name="searchFilms"
         placeholder="Search films..."
-        onChange={handleSearchChange} 
+        onChange={handleSearchChange}
         styleType="searchFilms"
-        value={searchTerm} 
+        value={searchTerm}
       />
 
       <div className="flex items-center gap-4">
-        <Select
-          name="genreSelect"
-          onChange={handleGenreChange} 
-        >
+        <Select name="genreSelect" onChange={handleGenreChange}>
           <Option value="all">All</Option>
           <Option value="Action">Action</Option>
           <Option value="Drama">Drama</Option>
@@ -103,6 +97,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
+      <Pagination fetchPage={fetchPage} fetchNextPage={fetchNextPage} fetchPreviousPage={fetchPreviousPage} /> {/* Prosledite fetch funkcije */}
     </div>
   );
 };

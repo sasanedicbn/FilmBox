@@ -4,6 +4,7 @@ import LengthPagination from "../../UI/LengthPagination";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
 import PaginationWrapper from "../../UI/PaginationWrapper";
+import { paginationProps } from "../../../types/types";
 
 const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationProps) => {
     const [numPagination, setNumPagination] = useState(0);

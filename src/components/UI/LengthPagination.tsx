@@ -1,3 +1,4 @@
+import { LengthPaginationProps } from "../../types/types";
 
 const LengthPagination = ({ lengthPagination, activePage, handlePageChange }:LengthPaginationProps) => {
     return (
