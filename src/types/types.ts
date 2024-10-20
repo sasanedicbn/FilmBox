@@ -52,3 +52,9 @@ export type ButtonProps = {
   onClick: () => void; 
   disabled?: boolean; 
 }
+
+export type LengthPaginationProps = {
+  lengthPagination: number; 
+  activePage: number; 
+  handlePageChange: (page: number) => void; 
+}

@@ -1,4 +1,5 @@
-const LengthPagination = ({ lengthPagination, activePage, handlePageChange }) => {
+
+const LengthPagination = ({ lengthPagination, activePage, handlePageChange }:LengthPaginationProps) => {
     return (
         <>
             {Array.from({ length: lengthPagination }).map((_, index) => (
