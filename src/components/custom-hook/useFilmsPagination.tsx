@@ -35,10 +35,7 @@ const useFilmsPagination = () => {
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
     dispatch(setFilms(movies));
 
-    setLastVisible(data.docs[data.docs.length - 1]);
-    setFirstVisible(data.docs[0]);
-  };
-
+    set
   const fetchNextPage = async () => {
     const coll = collection(db, "films");
 
