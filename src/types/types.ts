@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 type styleType = 'login' | 'searchFilms'
 
 export type InputProps = {
@@ -57,4 +59,9 @@ export type LengthPaginationProps = {
   lengthPagination: number; 
   activePage: number; 
   handlePageChange: (page: number) => void; 
+}
+
+export type PaginationWrapperProps = {
+  children: ReactNode; 
+  type: 'smallNumberPagination' | 'bigNumberPagination'; 
 }
