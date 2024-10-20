@@ -1,4 +1,5 @@
 type styleType = 'login' | 'searchFilms'
+
 export type InputProps = {
     styleType: styleType,
     type: string,
@@ -42,4 +43,12 @@ export type paginationProps = {
   fetchNextPage:  () => Promise<void>;
   fetchPreviousPage: () => Promise<void>;
   fetchPage: (pageIndex: number) => Promise<void>;
+}
+
+export type ButtonProps = {
+  type: 'login' | 'pagination' ;
+  buttonType?: 'button' | 'submit' | 'reset'; 
+  children: React.ReactNode;
+  onClick: () => void; 
+  disabled?: boolean; 
 }

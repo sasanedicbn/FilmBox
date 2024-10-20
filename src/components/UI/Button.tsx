@@ -1,4 +1,5 @@
-const Button = ({ type, children, onClick, disabled = false }) => {
+
+const Button = ({ type, children, onClick, disabled = false }:ButtonProps) => {
     const base = 'w-full py-2.5 px-5 text-center no-underline cursor-pointer rounded';
 
     const styles = {
