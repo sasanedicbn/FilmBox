@@ -23,16 +23,16 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       let q;
 
       if (genre === "all") {
-        q = query(filmsRef, orderBy("title", "asc"), limit(12));
+        q = query(coll, orderBy("title", "asc"), limit(12));
       } else {
         q = query(
-          filmsRef,
+          coll,
           where("genre", "array-contains", genre), 
           orderBy("genre"),
           limit(12),
         );
       }
-
+  
       const querySnapshot = await getDocs(q);
       const filteredFilms = querySnapshot.docs
         .map((doc) => {
