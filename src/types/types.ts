@@ -1,4 +1,6 @@
+import { collection, limit, orderBy, query, startAfter } from "firebase/firestore";
 import { ReactNode } from "react";
+import { db } from "../config/firebase";
 
 type styleType = 'login' | 'searchFilms'
 
@@ -65,3 +67,33 @@ export type PaginationWrapperProps = {
   children: ReactNode; 
   type: 'smallNumberPagination' | 'bigNumberPagination'; 
 }
+const coll = collection(db, "films");
+
+export function OrderByRatingDesc (conditional1, conditional2) {
+  const ratingDesc = {
+    moviesQuery : query(
+     coll,
+     orderBy("rating", "desc"),
+     limit(12),
+     startAfter(conditional1 > 0 ? conditional2 : null),
+   )
+ }
+ return ratingDesc
+}
+export function OrderByRatingDescNextPage (lastVisible) {
+  const moviesQuery = query(
+    coll,
+    orderBy("rating", "desc"),
+    startAfter(lastVisible),
+    limit(12)
+  );
+ return moviesQuery
+}
+
+
+
+export const orderByRatingDesc = orderBy("rating", "desc")
+// function moviesQueryConditional (conditional) {
+  
+  
+// }

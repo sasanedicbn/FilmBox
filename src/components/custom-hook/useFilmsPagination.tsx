@@ -4,6 +4,7 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../config/firebase";
 import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
+import { OrderByRatingDesc } from "../../types/types";
 
 const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);
@@ -15,16 +16,17 @@ const useFilmsPagination = () => {
     dispatch(setFilms(films));
   };
 
-  const fetchPage = async (pageIndex:number) => {
-    const coll = collection(db, "films");
+  const fetchPage = async (pageIndex:number, conditionalFn) => {
+    // const coll = collection(db, "films");
     const offset = pageIndex * 12;
-
-    const moviesQuery = query(
-      coll,
-      orderBy("rating", "desc"),
-      limit(12),
-      startAfter(offset > 0 ? lastVisible : null)
-    );
+    // const moviesQuery = query(
+    //   coll,
+    //   orderBy("rating", "desc"),
+    //   limit(12),
+    //   startAfter(offset > 0 ? lastVisible : null)
+    // );
+   const moviesQuery = OrderByRatingDesc(offset, lastVisible)
+   console.log('moviesQuery iz fn',moviesQuery)
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {
@@ -39,7 +41,7 @@ const useFilmsPagination = () => {
     setFirstVisible(data.docs[0]);
   };
 
-  const fetchNextPage = async () => {
+  const fetchNextPage = async (conditionalFn) => {
     const coll = collection(db, "films");
 
     const moviesQuery = query(
