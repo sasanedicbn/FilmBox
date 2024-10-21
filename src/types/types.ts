@@ -108,7 +108,7 @@ export const setQueryData = (action, params) => {
   let baseConstraints = [limit(12)];
   let orderByConstraint = orderBy("rating", "desc");
 
-  let q;
+  let q =[];
 
   switch (action) {
     case 'next':

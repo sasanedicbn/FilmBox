@@ -4,7 +4,7 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../config/firebase";
 import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
-import { allConditions } from "../../types/types";
+import {  setQueryData } from "../../types/types";
 
 const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);
@@ -40,16 +40,11 @@ const useFilmsPagination = () => {
     setFirstVisible(data.docs[0]);
   };
 
-  const fetchNextPage = async (conditionalFn) => {
-      // const moviesQuery =  allConditions("OrderByRatingDescNextPage", {
-      //   lastVisible,
-      //   firstVisible,
-      // })
-      const moviesQuery =  allConditions("OrderByRatingDescNextPage", {
-        lastVisible,
-        firstVisible,
-      })
-      
+  const fetchNextPage = async (action) => {
+        const coll = collection(db, "films");
+      let horror = 'horror'
+      const moviesQuery =  setQueryData('next', {firstVisible, lastVisible, coll , horror})
+      console.log(moviesQuery, 'moviesQuery')
 
       if (!moviesQuery) {
         console.log("Neispravan uslov za sledeću stranicu", moviesQuery);
@@ -63,6 +58,7 @@ const useFilmsPagination = () => {
     }
 
     const movies = data.docs.map((doc) => ({ id2: doc.id, ...doc.data() }));
+    console.log('movies next', movies)
     dispatch(setFilms(movies));
     
 
@@ -72,11 +68,7 @@ const useFilmsPagination = () => {
 
   const fetchPreviousPage = async () => {
     if (!firstVisible) return;
-
-    const moviesQuery = allConditions("OrderByRatingDescPrevPage", {
-      lastVisible,
-      firstVisible,
-    });
+   let moviesQuery
 
     if (!moviesQuery) {
       console.log("Neispravan uslov za prethodnu stranicu");
