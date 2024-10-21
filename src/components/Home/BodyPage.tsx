@@ -8,6 +8,7 @@ import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilms } from "../../store/slices/filmsSlice";
+import Pagination from "./Films/Pagination";
 
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
@@ -17,7 +18,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
 
   const fetchSortedFilms = async () => {
     try {
-      const filmsRef = collection(db, "films");
+      const coll = collection(db, "films");
 
       let q;
 
@@ -103,6 +104,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
+      <Pagination/>
     </div>
   );
 };

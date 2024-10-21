@@ -1,4 +1,4 @@
-import { collection, limit, orderBy, query, startAfter } from "firebase/firestore";
+import { collection, endBefore, limit, limitToLast, orderBy, query, startAfter, where } from "firebase/firestore";
 import { ReactNode } from "react";
 import { db } from "../config/firebase";
 
@@ -69,31 +69,63 @@ export type PaginationWrapperProps = {
 }
 const coll = collection(db, "films");
 
-export function OrderByRatingDesc (conditional1, conditional2) {
-  const ratingDesc = {
-    moviesQuery : query(
-     coll,
-     orderBy("rating", "desc"),
-     limit(12),
-     startAfter(conditional1 > 0 ? conditional2 : null),
-   )
- }
- return ratingDesc
-}
-export function OrderByRatingDescNextPage (lastVisible) {
-  const moviesQuery = query(
-    coll,
-    orderBy("rating", "desc"),
-    startAfter(lastVisible),
-    limit(12)
-  );
- return moviesQuery
-}
+
+// export const allConditions = (action, params) => {
+//   const { lastVisible, firstVisible, genre } = params; 
+
+//   switch (action) {
+//     let query
+//     if(action === 'next')
+//       query =  query(
+//         coll,
+//         orderBy("rating", "desc"),
+//         startAfter(lastVisible),
+//         limit(12)
+//       );
+//     if(action === 'prev')
+//       query = query(
+//         coll,
+//         orderBy("rating", "desc"),
+//         endBefore(firstVisible),
+//         limitToLast(12)
+//       );
+//     if(action === 'genre')
+//       return query(
+//             coll,
+//             where("genre", "array-contains", genre), 
+//             orderBy("genre"),
+//             limit(12),
+//       );
+
+   
+//     return query
+// };
 
 
+export const setQueryData = (action, params) => {
+  const { lastVisible, firstVisible, genre, coll } = params;
 
-export const orderByRatingDesc = orderBy("rating", "desc")
-// function moviesQueryConditional (conditional) {
-  
-  
-// }
+  let baseConstraints = [limit(12)];
+  let orderByConstraint = orderBy("rating", "desc");
+
+  let q;
+
+  switch (action) {
+    case 'next':
+      q = [startAfter(lastVisible)];
+      break;
+    case 'prev':
+      q = [endBefore(firstVisible), limitToLast(12)];
+      break;
+    case 'genre':
+      q = [where("genre", "array-contains", genre)];
+      orderByConstraint = orderBy("genre");
+      break;
+    default:
+      break;
+  }
+
+  const finalQueryConstraints = [orderByConstraint, ...baseConstraints, ...q];
+
+  return query(coll, ...finalQueryConstraints);
+};

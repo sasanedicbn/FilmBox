@@ -4,7 +4,7 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../config/firebase";
 import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
-import { OrderByRatingDesc } from "../../types/types";
+import { allConditions } from "../../types/types";
 
 const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);
@@ -16,6 +16,7 @@ const useFilmsPagination = () => {
     dispatch(setFilms(films));
   };
 
+
   const fetchPage = async (pageIndex:number, conditionalFn) => {
     // const coll = collection(db, "films");
     const offset = pageIndex * 12;
@@ -25,8 +26,6 @@ const useFilmsPagination = () => {
     //   limit(12),
     //   startAfter(offset > 0 ? lastVisible : null)
     // );
-   const moviesQuery = OrderByRatingDesc(offset, lastVisible)
-   console.log('moviesQuery iz fn',moviesQuery)
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {
@@ -42,15 +41,21 @@ const useFilmsPagination = () => {
   };
 
   const fetchNextPage = async (conditionalFn) => {
-    const coll = collection(db, "films");
+      // const moviesQuery =  allConditions("OrderByRatingDescNextPage", {
+      //   lastVisible,
+      //   firstVisible,
+      // })
+      const moviesQuery =  allConditions("OrderByRatingDescNextPage", {
+        lastVisible,
+        firstVisible,
+      })
+      
 
-    const moviesQuery = query(
-      coll,
-      orderBy("rating", "desc"),
-      startAfter(lastVisible),
-      limit(12)
-    );
-
+      if (!moviesQuery) {
+        console.log("Neispravan uslov za sledeću stranicu", moviesQuery);
+        return;
+      }
+  
     const data = await getDocs(moviesQuery);
     if (data.empty) {
       console.log("Nema više podataka");
@@ -68,14 +73,15 @@ const useFilmsPagination = () => {
   const fetchPreviousPage = async () => {
     if (!firstVisible) return;
 
-    const coll = collection(db, "films");
+    const moviesQuery = allConditions("OrderByRatingDescPrevPage", {
+      lastVisible,
+      firstVisible,
+    });
 
-    const moviesQuery = query(
-      coll,
-      orderBy("rating", "desc"),
-      endBefore(firstVisible),
-      limitToLast(12)
-    );
+    if (!moviesQuery) {
+      console.log("Neispravan uslov za prethodnu stranicu");
+      return;
+    }
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {
