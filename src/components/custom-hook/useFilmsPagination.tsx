@@ -69,7 +69,8 @@ const useFilmsPagination = () => {
     if (!firstVisible) return;
     const coll = collection(db, "films");
     const moviesQuery =  setQueryData(action, {firstVisible, lastVisible, coll })
-
+    
+    console.log(moviesQuery, 'moviesQuery')
     if (!moviesQuery) {
       console.log("Neispravan uslov za prethodnu stranicu");
       return;
