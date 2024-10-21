@@ -68,8 +68,12 @@ const useFilmsPagination = () => {
 
   const fetchPreviousPage = async () => {
     if (!firstVisible) return;
-   let moviesQuery
+    const coll = collection(db, "films");
 
+
+    let horror = 'horror'
+    const moviesQuery =  setQueryData('prev', {firstVisible, lastVisible, coll , horror})
+    console.log(moviesQuery, 'moviesQuery')
     if (!moviesQuery) {
       console.log("Neispravan uslov za prethodnu stranicu");
       return;
