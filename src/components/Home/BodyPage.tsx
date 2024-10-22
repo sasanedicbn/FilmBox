@@ -7,8 +7,7 @@ import { collection, getDocs, query, where, orderBy, limit } from "firebase/fire
 import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setFilms } from "../../store/slices/filmsSlice";
-import Pagination from "./Films/Pagination";
+import { setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
 
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
@@ -56,6 +55,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = e.target.value;
+    dispatch(setCurrentGenre(selectedGenre))
     setGenre(selectedGenre);
   };
 
@@ -104,7 +104,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
-      <Pagination/>
     </div>
   );
 };
