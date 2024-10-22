@@ -102,8 +102,8 @@ const coll = collection(db, "films");
 // };
 
 
-export const setQueryData = (action, params) => {
-  const { lastVisible, firstVisible, genre, coll } = params;
+export const setQueryData = (action) => {
+  const { lastVisible, firstVisible, genre, coll } = action;
 
   let baseConstraints = [limit(12)];
   let orderByConstraint = orderBy("rating", "desc");
@@ -129,3 +129,8 @@ export const setQueryData = (action, params) => {
 
   return query(coll, ...finalQueryConstraints);
 };
+
+// export function prvaPaginacija (action, firstVisible, lastVisible, coll, genre = null ) {
+//   const moviesQuery =  setQueryData(action, {firstVisible, lastVisible, coll, genre})
+//   return moviesQuery
+// }

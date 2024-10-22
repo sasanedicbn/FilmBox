@@ -4,7 +4,7 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../config/firebase";
 import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
-import {  setQueryData } from "../../types/types";
+import {  prvaPaginacija, setQueryData } from "../../types/types";
 
 const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);
@@ -42,9 +42,9 @@ const useFilmsPagination = () => {
 
   const fetchNextPage = async (action) => {
       const coll = collection(db, "films");
-      const moviesQuery =  setQueryData(action, {firstVisible, lastVisible, coll})
+      const moviesQuery = setQueryData(...action)
       console.log(moviesQuery, 'moviesQuery')
-
+       
       if (!moviesQuery) {
         console.log("Neispravan uslov za sledeću stranicu", moviesQuery);
         return;
@@ -65,10 +65,10 @@ const useFilmsPagination = () => {
     setFirstVisible(data.docs[0]);
   };
 
-  const fetchPreviousPage = async (action) => {
+  const fetchPreviousPage = async () => {
     if (!firstVisible) return;
     const coll = collection(db, "films");
-    const moviesQuery =  setQueryData(action, {firstVisible, lastVisible, coll })
+    const moviesQuery =  setQueryData('prev', {firstVisible, lastVisible, coll })
     
     console.log(moviesQuery, 'moviesQuery')
     if (!moviesQuery) {
