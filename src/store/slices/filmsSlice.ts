@@ -6,7 +6,8 @@ const initialState = {
   films: [],
   testimonialFilms: [],
   currentFilm: null,
-  markedFilms: []
+  markedFilms: [],
+  currentGenre: null,
 };
 
 export const filmsSlice = createSlice({
@@ -28,6 +29,9 @@ export const filmsSlice = createSlice({
     clearCurrentFilm: (state) => {
       state.currentFilm = null;
     },
+    setCurrentGenre: (state, action) => {
+      state.currentGenre = action.payload
+    },
     addMarketFilms:(state, action) => {
       const existingFilm = state.markedFilms.find(film => film.id2 === action.payload.id2)
       if(!existingFilm){
@@ -41,6 +45,6 @@ export const filmsSlice = createSlice({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms } = filmsSlice.actions;
+export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms, setCurrentGenre } = filmsSlice.actions;
 
 export default filmsSlice.reducer;

@@ -102,8 +102,8 @@ const coll = collection(db, "films");
 // };
 
 
-export const setQueryData = (action) => {
-  const { lastVisible, firstVisible, genre, coll } = action;
+export const setQueryData = (action, params) => {
+  const { lastVisible, firstVisible, genre, coll } = params;
 
   let baseConstraints = [limit(12)];
   let orderByConstraint = orderBy("rating", "desc");
