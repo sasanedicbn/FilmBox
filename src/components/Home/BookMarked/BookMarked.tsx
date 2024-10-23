@@ -1,25 +1,52 @@
-import { useSelector } from "react-redux";
-import CardTestimonial from "../testimonial/CardTestimonial";
-import FilmsDetails from "../Films/FilmsDetails";
-import { useState } from "react";
-import LengthPagination from "../../UI/LengthPagination";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Button from "../../UI/Button";
 import PaginationWrapper from "../../UI/PaginationWrapper";
-import { RootState } from "../../../store/slices/filmsSlice";
+import CardTestimonial from "../testimonial/CardTestimonial";
+import FilmsDetails from "../Films/FilmsDetails";
+import LengthPagination from "../../UI/LengthPagination";
 import { Film } from "../../../types/types";
+import { toast } from "react-toastify";
+import { auth, db } from "../../../config/firebase";
 
 const BookMarked = () => {
-  const bookedFilm = useSelector((state:RootState) => state.films.markedFilms);
-  
-  const [currentPage, setCurrentPage] = useState(1); 
-  const filmsPerPage = 12; 
+  const currentUser  = auth.currentUser;
+  const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const filmsPerPage = 12;
   const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
 
   const indexOfLastFilm = currentPage * filmsPerPage;
   const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
-  
   const currentFilms = bookedFilm.slice(indexOfFirstFilm, indexOfLastFilm);
+
+  useEffect(() => {
+    const fetchBookmarkedFilms = async () => {
+      if (!currentUser) {
+        toast.error("You need to be logged in to view your bookmarks.");
+        return;
+      }
+
+      try {
+        const userId = currentUser.uid;
+        const collectionRef = collection(db, "users", userId, "bookmarkedFilms");
+        const querySnapshot = await getDocs(collectionRef);
+
+        const filmsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Film[];
+
+        setBookedFilm(filmsData);
+      } catch (error) {
+        console.error("Error fetching bookmarked films:", error);
+        toast.error("Error fetching bookmarked films.");
+      }
+    };
+
+    fetchBookmarkedFilms();
+  }, [currentUser]);
 
   const handleNextMarkedFilms = () => {
     if (indexOfLastFilm < bookedFilm.length) {
@@ -37,7 +64,7 @@ const BookMarked = () => {
     <div className="max-w-[71rem] mx-auto mt-14">
       <div className="grid grid-cols-4 gap-6">
         {currentFilms.length > 0 ? (
-          currentFilms.map((film:Film) => (
+          currentFilms.map((film: Film) => (
             <div key={film.id} className="flex flex-col">
               <CardTestimonial testimonialFilms={film} />
               <FilmsDetails films={film} />
@@ -48,7 +75,7 @@ const BookMarked = () => {
         )}
       </div>
       <PaginationWrapper type="smallNumberPagination">
-        <Button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} type="pagination" >
+        <Button onClick={handlePreviousMarkedFilms} disabled={currentPage === 1} type="pagination">
           <AiOutlineLeft />
         </Button>
         <LengthPagination
@@ -56,7 +83,7 @@ const BookMarked = () => {
           activePage={currentPage}
           handlePageChange={setCurrentPage}
         />
-        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} type="pagination" >
+        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} type="pagination">
           <AiOutlineRight />
         </Button>
       </PaginationWrapper>
@@ -65,4 +92,3 @@ const BookMarked = () => {
 };
 
 export default BookMarked;
-

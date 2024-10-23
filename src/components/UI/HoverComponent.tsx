@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { auth, db } from "../../config/firebase";
@@ -19,13 +19,19 @@ const HoverComponent = ({ films }: { films: Film }) => {
     try {
       const userId = currentUser.uid; 
       const filmRef = doc(db, "users", userId, "bookmarkedFilms", films.id);
+      
+      const filmSnapshot = await getDoc(filmRef); 
 
-      await setDoc(filmRef, films); 
-
-      toast.success("Film bookmarked successfully.");
+      if (filmSnapshot.exists()) {
+        await deleteDoc(filmRef);
+        toast.error("Film removed from bookmarks.");
+      } else {
+        await setDoc(filmRef, films);
+        toast.success("Film bookmarked successfully.");
+      }
     } catch (error) {
-      console.error("Error bookmarking film:", error);
-      toast.error("Error bookmarking film.");
+      console.error("Error bookmarking or unbookmarking film:", error);
+      toast.error("Error bookmarking or unbookmarking film.");
     }
   };
 
@@ -41,4 +47,3 @@ const HoverComponent = ({ films }: { films: Film }) => {
 };
 
 export default HoverComponent;
-
