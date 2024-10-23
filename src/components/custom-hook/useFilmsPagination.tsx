@@ -19,15 +19,17 @@ const useFilmsPagination = () => {
   };
 
 
-  const fetchPage = async (pageIndex:number, conditionalFn) => {
-    // const coll = collection(db, "films");
+
+
+  const fetchPage = async (pageIndex:number) => {
+    const coll = collection(db, "films");
     const offset = pageIndex * 12;
-    // const moviesQuery = query(
-    //   coll,
-    //   orderBy("rating", "desc"),
-    //   limit(12),
-    //   startAfter(offset > 0 ? lastVisible : null)
-    // );
+    const moviesQuery = query(
+      coll,
+      orderBy("rating", "desc"),
+      limit(12),
+      startAfter(offset > 0 ? lastVisible : null)
+    );
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {

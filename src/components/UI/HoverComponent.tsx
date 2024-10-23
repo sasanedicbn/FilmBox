@@ -15,6 +15,7 @@ const HoverComponent = ({ films }: { films: Film }) => {
 
     try {
       const userId = currentUser.uid; 
+      console.log(userId)
       const filmRef = doc(db, "users", userId, "bookmarkedFilms", films.id);
       
       const filmSnapshot = await getDoc(filmRef); 

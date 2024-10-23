@@ -19,7 +19,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
             setNumPagination(filmsCount);
         };
         totalFilms();
-    }, []);
+    }, [activePage]);
 
     const handlePageChange = (index:number) => {
         setActivePage(index);

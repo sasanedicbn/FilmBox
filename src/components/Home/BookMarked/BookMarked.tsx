@@ -15,8 +15,8 @@ const BookMarked = () => {
   const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const filmsPerPage = 12;
+  
   const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
-
   const indexOfLastFilm = currentPage * filmsPerPage;
   const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
   const currentFilms = bookedFilm.slice(indexOfFirstFilm, indexOfLastFilm);
@@ -37,7 +37,8 @@ const BookMarked = () => {
           id: doc.id,
           ...doc.data(),
         })) as Film[];
-
+        
+        console.log(filmsData)
         setBookedFilm(filmsData);
       } catch (error) {
         console.error("Error fetching bookmarked films:", error);
@@ -46,7 +47,7 @@ const BookMarked = () => {
     };
 
     fetchBookmarkedFilms();
-  }, [currentUser]);
+  }, [currentUser, bookedFilm]);
 
   const handleNextMarkedFilms = () => {
     if (indexOfLastFilm < bookedFilm.length) {

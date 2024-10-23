@@ -9,7 +9,7 @@ import { Film } from "../../../types/types";
 const Films = () => {
   const films = useSelector((state:RootState) => state.films.films);
 
-  const { fetchNextPage, fetchPreviousPage, fetchPage } = useFilmsPagination();
+  const { fetchNextPage, fetchPreviousPage, fetchPage, } = useFilmsPagination();
 
   return (
     <div className="max-w-[71rem] mx-auto mt-14">

@@ -8,14 +8,11 @@ import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
-import Pagination from "./Films/Pagination";
 
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [genre, setGenre] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // const [lastVisible, setLastVisible] = useState<null | any>(null);
-  // const [firstVisible, setFirstVisible] = useState<null | any>(null);
   const dispatch = useDispatch();
 
   const fetchSortedFilms = async () => {
@@ -107,7 +104,8 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
-      <Pagination/>
+      <button>PREVIOUS 12</button>
+      <button onClick={fetchSortedFilms}>NEXT 12</button>
     </div>
   );
 };
