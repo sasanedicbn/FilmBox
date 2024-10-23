@@ -1,14 +1,11 @@
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { auth, db } from "../../config/firebase";
-import { addMarketFilms } from "../../store/slices/filmsSlice";
 import Icon from "./Icon";
 import { Film } from "../../types/types";
 
 const HoverComponent = ({ films }: { films: Film }) => {
   const currentUser = auth.currentUser; 
-  const dispatch = useDispatch();
 
   const handleMarkFilm = async () => {
     if (!currentUser) {
@@ -30,7 +27,6 @@ const HoverComponent = ({ films }: { films: Film }) => {
         toast.success("Film bookmarked successfully.");
       }
     } catch (error) {
-      console.error("Error bookmarking or unbookmarking film:", error);
       toast.error("Error bookmarking or unbookmarking film.");
     }
   };
