@@ -41,6 +41,12 @@ const BookMarked = () => {
         console.log('films Data iz booked', filmsData)
         setBookedFilm(filmsData);
       } catch (error) {
+        console.error("Error fetching bookmarked films:", error);
+        toast.error("Error fetching bookmarked films.");
+      }
+    };
+
+    fetchBookmarkedFilms();
   }, [currentUser]);
 
   const handleNextMarkedFilms = () => {
@@ -87,3 +93,5 @@ const BookMarked = () => {
 };
 
 export default BookMarked;
+
+// LEARN NEW FEATURES ABOUT CLOUSERS 
