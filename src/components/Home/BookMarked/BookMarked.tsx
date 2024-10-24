@@ -38,7 +38,7 @@ const BookMarked = () => {
           ...doc.data(),
         })) as Film[];
         
-        console.log(filmsData)
+        console.log('films Data iz booked', filmsData)
         setBookedFilm(filmsData);
       } catch (error) {
         console.error("Error fetching bookmarked films:", error);
@@ -47,7 +47,7 @@ const BookMarked = () => {
     };
 
     fetchBookmarkedFilms();
-  }, [currentUser, bookedFilm]);
+  }, [currentUser]);
 
   const handleNextMarkedFilms = () => {
     if (indexOfLastFilm < bookedFilm.length) {
