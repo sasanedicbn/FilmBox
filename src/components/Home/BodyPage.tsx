@@ -16,7 +16,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
 
-  const {fetchNextPage, fetchPreviousPage} = useFilmsPagination()
   const fetchSortedFilms = async () => {
     try {
       const coll = collection(db, "films");
@@ -24,7 +23,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
       let q;
 
       if (genre === "all") {
-        q = query(coll, orderBy("title", "asc"), limit(12));
+        q = query(coll, orderBy("rating", "desc"), limit(12));
       } else {
         q = query(
           coll,
@@ -57,9 +56,8 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = e.target.value;
-    fetchNextPage('genre', selectedGenre)
-    dispatch(setCurrentGenre(selectedGenre))
     setGenre(selectedGenre);
+    dispatch(setCurrentGenre(selectedGenre))
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,8 +105,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
-      <button>PREVIOUS 12</button>
-      <button onClick={fetchSortedFilms}>NEXT 12</button>
     </div>
   );
 };

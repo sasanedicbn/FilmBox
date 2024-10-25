@@ -5,9 +5,11 @@ import useFilmsPagination from "../../custom-hook/useFilmsPagination";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/slices/filmsSlice";
 import { Film } from "../../../types/types";
+import Button from "../../UI/Button";
 
 const Films = () => {
   const films = useSelector((state:RootState) => state.films.films);
+  const genre = useSelector((state) => state.films.currentGenre)
 
   const { fetchNextPage, fetchPreviousPage, fetchPage, } = useFilmsPagination();
 
@@ -21,11 +23,15 @@ const Films = () => {
           </div>
         ))}
       </div>
-      <Pagination
-        fetchNextPage={fetchNextPage}
-        fetchPreviousPage={fetchPreviousPage}
-        fetchPage={fetchPage}
-      />
+      {genre ?
+       <Button type="upload"> ${`Upload more ${genre} movies`}</Button>
+        : (
+          <Pagination
+          fetchNextPage={fetchNextPage}
+          fetchPreviousPage={fetchPreviousPage}
+          fetchPage={fetchPage}
+        />
+      )}
     </div>
   );
 };

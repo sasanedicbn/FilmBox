@@ -39,20 +39,16 @@ const useFilmsPagination = () => {
     setFirstVisible(data.docs[0]);
   };
 
-  const fetchNextPage = async (action, paramss = null) => {
+  const fetchNextPage = async () => {
     const coll = collection(db, "films");
-    console.log('action', action,)
-
-      let params = {
-      firstVisible: firstVisible,
-      lastVisible: lastVisible,
-      coll: coll,
-      genre: paramss,
-    }
   
-    console.log('params', params)
-    const moviesQuery = setQueryData(action, params); 
-    
+
+    const moviesQuery = query(
+      coll,
+      orderBy("rating", "desc"),
+      limit(12),
+      startAfter(lastVisible)
+    );
   
     if (!moviesQuery) {
       console.log("Neispravan uslov za sledeću stranicu", moviesQuery);
@@ -77,9 +73,14 @@ const useFilmsPagination = () => {
   
 
   const fetchPreviousPage = async () => {
-    if (!firstVisible) return;
     const coll = collection(db, "films");
-    const moviesQuery =  setQueryData('prev', {firstVisible, lastVisible, coll })
+
+    const moviesQuery = query(
+      coll,
+      orderBy("rating", "desc"),
+      limit(12),
+      endBefore(firstVisible), limitToLast(12)
+    );
     
     console.log(moviesQuery, 'moviesQuery')
     if (!moviesQuery) {

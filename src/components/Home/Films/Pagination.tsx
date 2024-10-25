@@ -31,7 +31,8 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
         if (activePage < lengthPagination ) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
-            fetchNextPage('next')
+            fetchNextPage()
+
         }
     };
 
@@ -39,7 +40,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
         if (activePage > 0) {
             const prevPage = activePage - 1;
             setActivePage(prevPage);
-            fetchPreviousPage('prev'); 
+            fetchPreviousPage(); 
         }
     };
 
