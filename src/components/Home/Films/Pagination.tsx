@@ -11,11 +11,11 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
     const [activePage, setActivePage] = useState(1);
     
     const lengthPagination =  Math.ceil(numPagination / 12)
-
+  
     useEffect(() => {
         const totalFilms = async () => {
             const filmsCount = await fetchTotalFilmsCount();
-            console.log('filmsCount', filmsCount)
+            // console.log('filmsCount', filmsCount)
             setNumPagination(filmsCount);
         };
         totalFilms();
@@ -31,7 +31,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
         if (activePage < lengthPagination ) {
             const nextPage = activePage + 1;
             setActivePage(nextPage);
-             fetchNextPage()
+            fetchNextPage('next')
         }
     };
 
@@ -39,7 +39,7 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
         if (activePage > 0) {
             const prevPage = activePage - 1;
             setActivePage(prevPage);
-            fetchPreviousPage(); 
+            fetchPreviousPage('prev'); 
         }
     };
 

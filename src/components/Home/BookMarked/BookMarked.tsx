@@ -94,4 +94,3 @@ const BookMarked = () => {
 
 export default BookMarked;
 
-// LEARN ABOUT ASYNC

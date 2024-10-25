@@ -104,7 +104,8 @@ const coll = collection(db, "films");
 
 export const setQueryData = (action, params) => {
   const { lastVisible, firstVisible, genre, coll } = params;
-
+  console.log('params iz setQuery', lastVisible, genre, coll)
+  console.log('action', action)
   let baseConstraints = [limit(12)];
   let orderByConstraint = orderBy("rating", "desc");
 

@@ -8,6 +8,7 @@ import { db } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
+import useFilmsPagination from "../custom-hook/useFilmsPagination";
 
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
@@ -15,6 +16,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const dispatch = useDispatch();
 
+  const {fetchNextPage, fetchPreviousPage} = useFilmsPagination()
   const fetchSortedFilms = async () => {
     try {
       const coll = collection(db, "films");
@@ -46,7 +48,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
         );
 
 
-        console.log('filteredFilms on select', filteredFilms)
+        // console.log('filteredFilms on select', filteredFilms)
       dispatch(setFilms(filteredFilms));
     } catch (error) {
       console.error("Error fetching films:", error);
@@ -55,6 +57,7 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = e.target.value;
+    fetchNextPage('genre', selectedGenre)
     dispatch(setCurrentGenre(selectedGenre))
     setGenre(selectedGenre);
   };

@@ -12,14 +12,10 @@ const useFilmsPagination = () => {
   const dispatch = useDispatch();
   const genre = useSelector((state) => state.films.currentGenre)
 
-  console.log(genre)
   const fetchPaginations = async () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);
     dispatch(setFilms(films));
   };
-
-
-
 
   const fetchPage = async (pageIndex:number) => {
     const coll = collection(db, "films");
@@ -33,7 +29,6 @@ const useFilmsPagination = () => {
 
     const data = await getDocs(moviesQuery);
     if (data.empty) {
-      console.log("Nema više podataka");
       return;
     }
 
@@ -44,19 +39,20 @@ const useFilmsPagination = () => {
     setFirstVisible(data.docs[0]);
   };
 
-  const fetchNextPage = async () => {
+  const fetchNextPage = async (action, paramss = null) => {
     const coll = collection(db, "films");
+    console.log('action', action,)
 
-    const params = {
-      firstVisible,
-      lastVisible,
-      coll,
-      genre,
-    };
-
-    const moviesQuery = setQueryData('next', params); 
+      let params = {
+      firstVisible: firstVisible,
+      lastVisible: lastVisible,
+      coll: coll,
+      genre: paramss,
+    }
+  
+    console.log('params', params)
+    const moviesQuery = setQueryData(action, params); 
     
-    console.log(moviesQuery, 'moviesQuery');
   
     if (!moviesQuery) {
       console.log("Neispravan uslov za sledeću stranicu", moviesQuery);
@@ -64,6 +60,8 @@ const useFilmsPagination = () => {
     }
   
     const data = await getDocs(moviesQuery);
+    console.log(data, 'data')
+
     if (data.empty) {
       console.log("Nema više podataka");
       return;
