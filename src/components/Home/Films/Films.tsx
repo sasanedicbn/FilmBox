@@ -24,7 +24,7 @@ const Films = () => {
         ))}
       </div>
       {genre ?
-       <Button type="upload"> ${`Upload more ${genre} movies`}</Button>
+       <Button type="upload"> {`Upload more ${genre} movies`}</Button>
         : (
           <Pagination
           fetchNextPage={fetchNextPage}
