@@ -24,7 +24,9 @@ const Films = () => {
         ))}
       </div>
       {genre ?
-       <Button type="upload"> {`Upload more ${genre} movies`}</Button>
+        <div className="flex justify-center my-4">
+         <Button type="upload">{`Upload more ${genre.toLowerCase()} movies`}</Button>
+       </div>
         : (
           <Pagination
           fetchNextPage={fetchNextPage}
