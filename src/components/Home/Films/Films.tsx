@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/slices/filmsSlice";
 import { Film } from "../../../types/types";
 import Button from "../../UI/Button";
+import useFilmsGenre from "../../custom-hook/useFilmsGenre";
 
 const Films = () => {
   const films = useSelector((state:RootState) => state.films.films);
   const genre = useSelector((state) => state.films.currentGenre)
 
   const { fetchNextPage, fetchPreviousPage, fetchPage, } = useFilmsPagination();
+  const {fetchSortedFilms} = useFilmsGenre()
 
   return (
     <div className="max-w-[71rem] mx-auto mt-14">
@@ -25,7 +27,7 @@ const Films = () => {
       </div>
       {genre ?
         <div className="flex justify-center my-4">
-         <Button type="upload">{`Upload more ${genre.toLowerCase()} movies`}</Button>
+         <Button type="upload" onClick={fetchSortedFilms}>{`Upload more ${genre.toLowerCase()} movies`}</Button>
        </div>
         : (
           <Pagination
