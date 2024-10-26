@@ -15,7 +15,7 @@ const useFilmsGenre = () => {
   const fetchSortedFilms = async (isLoadMore = false) => {
     try {
       const coll = collection(db, "films");
-      let q = query(coll, orderBy("rating", "desc"), limit(12)); 
+      let q = query(coll, orderBy("genre"), limit(12)); 
 
     
       if (genre !== "all") {
@@ -42,7 +42,7 @@ const useFilmsGenre = () => {
       } else {
         dispatch(setFilms(filteredFilms));
       }
-
+     console.log('filteredFilms', filteredFilms)
       const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
       setLastVisible(lastDoc);
     } catch (error) {

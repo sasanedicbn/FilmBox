@@ -38,7 +38,7 @@ const HoverComponent = ({ films }: { films: Film }) => {
         <span className="absolute top-2 right-2">
           <Icon name="marked" size={30} color="white" onClick={handleMarkFilm} type="pointer" />
         </span>
-        {/* <button>See more</button> //fali ovdje */}
+        <button>See more</button> 
       </div>
     </div>
   );
