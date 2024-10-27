@@ -26,7 +26,7 @@ const Films = () => {
         ))}
       </div>
       {genre ?
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center my-4" >
          <Button type="upload" onClick={() => fetchSortedFilms(true)}>{`Upload more ${genre.toLowerCase()} movies`}</Button>
        </div>
         : (
