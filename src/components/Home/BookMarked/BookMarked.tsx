@@ -9,22 +9,20 @@ import LengthPagination from "../../UI/LengthPagination";
 import { Film } from "../../../types/types";
 import { toast } from "react-toastify";
 import { auth, db } from "../../../config/firebase";
+import { useSelector } from "react-redux";
 
-interface BookMarkedProps {
-  searchTerm: string;
-}
 
-const BookMarked = ({ searchTerm }: BookMarkedProps) => {
+const BookMarked = () => {
   const currentUser = auth.currentUser;
   const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const filmsPerPage = 12;
+  const searchTerm = useSelector((state) => state.films.searchTerm);
 
   const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
   const indexOfLastFilm = currentPage * filmsPerPage;
   const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
 
-  // Filtriranje filmova prema `searchTerm`
   const filteredFilms = bookedFilm.filter((film) =>
     film.title.toLowerCase().includes(searchTerm.toLowerCase())
   );

@@ -51,6 +51,6 @@ export const filmsSlice = createSlice({
 
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms, setCurrentGenre } = filmsSlice.actions;
+export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms, setCurrentGenre, setSearchTerm } = filmsSlice.actions;
 
 export default filmsSlice.reducer;

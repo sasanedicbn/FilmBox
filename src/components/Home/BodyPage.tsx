@@ -4,15 +4,20 @@ import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
 import useFilmsGenre from "../custom-hook/useFilmsGenre";
-import BookMarked from "./BookMarked/BookMarked";
+import { useDispatch } from "react-redux";
+import { setSearchTerm } from "../../store/slices/filmsSlice";
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
+  const dispatch = useDispatch()
   const {
     genre,
     searchTerm,
     handleGenreChange,
-    handleSearchChange,
   } = useFilmsGenre();
+
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearchTerm(value)); 
+  };
 
   return (
     <div className="bg-gray-800 mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:max-w-[68rem] mt-24 p-4 rounded-lg">
@@ -51,8 +56,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
-      {/* Prosleđivanje searchTerm BookMarked komponenti */}
-      <BookMarked searchTerm={searchTerm} />
     </div>
   );
 };
