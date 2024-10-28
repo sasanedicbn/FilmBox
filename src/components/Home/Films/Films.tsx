@@ -11,6 +11,8 @@ import useFilmsGenre from "../../custom-hook/useFilmsGenre";
 const Films = () => {
   const films = useSelector((state:RootState) => state.films.films);
   const genre = useSelector((state) => state.films.currentGenre)
+  const availableFilms = useSelector((state) => state.films.films)
+  console.log(availableFilms, 'availableFilms')
 
   const { fetchNextPage, fetchPreviousPage, fetchPage, } = useFilmsPagination();
   const {fetchSortedFilms} = useFilmsGenre()
@@ -27,7 +29,7 @@ const Films = () => {
       </div>
       {genre ?
         <div className="flex justify-center my-4" >
-         <Button type="upload" onClick={() => fetchSortedFilms(true)}>{`Upload more ${genre.toLowerCase()} movies`}</Button>
+         <Button type="upload"  onClick={() => fetchSortedFilms(true)}>{`Upload more ${genre.toLowerCase()} movies`}</Button>
        </div>
         : (
           <Pagination

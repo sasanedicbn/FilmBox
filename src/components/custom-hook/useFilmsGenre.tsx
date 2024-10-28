@@ -23,19 +23,16 @@ const useFilmsGenre = () => {
         q = query(coll, where("genre", "array-contains", genre), orderBy("genre"), limit(12));
       }
   
-      // Ako se učitavaju dodatni filmovi
       if (isLoadMore && lastVisible) {
         q = query(q, startAfter(lastVisible), limit(12));
       }
   
-      // Proveri koliko filmova ima za odabrani žanr
       const countQuery = query(coll, where("genre", "array-contains", genre));
       const countSnapshot = await getDocs(countQuery);
       const totalCount = countSnapshot.docs.length;
      
       console.log(totalCount, 'totalCount')
       if (totalCount === 0) {
-        // Ako nema filmova za odabrani žanr, ne radi ništa
         console.log(`No films found for genre: ${genre}`);
         return;
       }
