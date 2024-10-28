@@ -11,7 +11,6 @@ const Select = ({ name, onChange, children, className }:SelectProps) => {
     return (
         <select
             name={name}
-            // value={value}
             onChange={onChange}
             className={`p-1 border bg-gray-300 border-gray-300 rounded-lg pointer cursor-pointer ${className}`}
         >

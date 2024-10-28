@@ -21,6 +21,7 @@ const useFilmsGenre = () => {
       if (genre !== "all") {
         q = query(coll, where("genre", "array-contains", genre), orderBy("genre"), limit(12));
       }
+     
 
       if (isLoadMore && lastVisible) {
         q = query(q, startAfter(lastVisible), limit(12));
@@ -64,8 +65,10 @@ const useFilmsGenre = () => {
   };
 
   const handleGenreChange = (selectedGenre: string) => {
-    dispatch(setCurrentGenre(selectedGenre));
+    const newGenre = selectedGenre === "all" ? null : selectedGenre;
+    dispatch(setCurrentGenre(newGenre));
   };
+  
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);

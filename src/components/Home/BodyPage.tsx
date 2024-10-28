@@ -1,4 +1,3 @@
-// components/BodyPage.tsx
 import Input from "../UI/Input";
 import Icon from "../UI/Icon";
 import Select from "../UI/Select";
@@ -12,7 +11,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
     searchTerm,
     handleGenreChange,
     handleSearchChange,
-    handleLoadMore,
   } = useFilmsGenre();
 
   return (
@@ -25,8 +23,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
         styleType="searchFilms"
         value={searchTerm}
       />
-      <button onClick={handleLoadMore}>LOAD</button>
-
       <div className="flex items-center gap-4">
         <Select
           name="genreSelect"
