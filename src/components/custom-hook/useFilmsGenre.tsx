@@ -3,18 +3,18 @@ import { collection, getDocs, query, where, orderBy, limit, startAfter } from "f
 import { useDispatch, useSelector } from "react-redux";
 import store from "../../store/store";
 import { db } from "../../config/firebase";
-import { setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
+import { RootState, setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
+import { toast } from "react-toastify";
 
 const useFilmsGenre = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [lastVisible, setLastVisible] = useState<any>(null);
   const [totalCount, setTotalCount] = useState<number>(0); 
+  const genre = useSelector((state:RootState) => state.films.currentGenre);
+  const searchTerm = useSelector((state:RootState) => state.films.searchTerm)
   const dispatch = useDispatch();
-  const genre = useSelector((state) => state.films.currentGenre);
 
   const fetchSortedFilms = async (isLoadMore = false) => {
     try {
-      console.log(isLoadMore, 'isLoadMore');
       const coll = collection(db, "films");
       let q = query(coll, orderBy("genre"), limit(12));
 
@@ -22,7 +22,6 @@ const useFilmsGenre = () => {
         q = query(coll, where("genre", "array-contains", genre), orderBy("genre"), limit(12));
       }
      
-
       if (isLoadMore && lastVisible) {
         q = query(q, startAfter(lastVisible), limit(12));
       }
@@ -33,7 +32,6 @@ const useFilmsGenre = () => {
 
       setTotalCount(total); 
 
-      console.log(total, 'totalCount');
       if (total === 0) {
         console.log(`No films found for genre: ${genre}`);
         return;
@@ -56,22 +54,16 @@ const useFilmsGenre = () => {
         dispatch(setFilms(filteredFilms));
       }
 
-      console.log('filteredFilms', filteredFilms);
       const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
       setLastVisible(lastDoc);
     } catch (error) {
-      console.error("Error fetching films:", error);
+      toast.error("Error fetching films");
     }
   };
 
   const handleGenreChange = (selectedGenre: string) => {
     const newGenre = selectedGenre === "all" ? null : selectedGenre;
     dispatch(setCurrentGenre(newGenre));
-  };
-  
-
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
   };
 
   const handleLoadMore = () => {
@@ -87,7 +79,6 @@ const useFilmsGenre = () => {
     searchTerm,
     totalCount, 
     handleGenreChange,
-    handleSearchChange,
     handleLoadMore,
     fetchSortedFilms,
   };

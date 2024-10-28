@@ -14,12 +14,12 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
     genre,
     searchTerm,
     handleGenreChange,
-    handleSearchChange,
+    // handleSearchChange,
   } = useFilmsGenre();
 
-  // const handleSearchChange = (value: string) => {
-  //   dispatch(setSearchTerm(value)); 
-  // };
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearchTerm(value)); 
+  };
 
   return (
     <div className="bg-gray-800 mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:max-w-[68rem] mt-24 p-4 rounded-lg">
@@ -65,3 +65,4 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
 };
 
 export default BodyPage;
+// 
