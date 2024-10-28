@@ -4,6 +4,7 @@ import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
 import useFilmsGenre from "../custom-hook/useFilmsGenre";
+import BookMarked from "./BookMarked/BookMarked";
 
 const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
   const {
@@ -50,6 +51,8 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
+      {/* Prosleđivanje searchTerm BookMarked komponenti */}
+      <BookMarked searchTerm={searchTerm} />
     </div>
   );
 };

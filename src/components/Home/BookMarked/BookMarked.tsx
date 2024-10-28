@@ -10,16 +10,26 @@ import { Film } from "../../../types/types";
 import { toast } from "react-toastify";
 import { auth, db } from "../../../config/firebase";
 
-const BookMarked = () => {
-  const currentUser  = auth.currentUser;
+interface BookMarkedProps {
+  searchTerm: string;
+}
+
+const BookMarked = ({ searchTerm }: BookMarkedProps) => {
+  const currentUser = auth.currentUser;
   const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const filmsPerPage = 12;
-  
+
   const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
   const indexOfLastFilm = currentPage * filmsPerPage;
   const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
-  const currentFilms = bookedFilm.slice(indexOfFirstFilm, indexOfLastFilm);
+
+  // Filtriranje filmova prema `searchTerm`
+  const filteredFilms = bookedFilm.filter((film) =>
+    film.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const currentFilms = filteredFilms.slice(indexOfFirstFilm, indexOfLastFilm);
 
   useEffect(() => {
     const fetchBookmarkedFilms = async () => {
@@ -37,8 +47,7 @@ const BookMarked = () => {
           id: doc.id,
           ...doc.data(),
         })) as Film[];
-        
-        console.log('films Data iz booked', filmsData)
+
         setBookedFilm(filmsData);
       } catch (error) {
         console.error("Error fetching bookmarked films:", error);
@@ -50,7 +59,7 @@ const BookMarked = () => {
   }, [currentUser]);
 
   const handleNextMarkedFilms = () => {
-    if (indexOfLastFilm < bookedFilm.length) {
+    if (indexOfLastFilm < filteredFilms.length) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -84,7 +93,7 @@ const BookMarked = () => {
           activePage={currentPage}
           handlePageChange={setCurrentPage}
         />
-        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= bookedFilm.length} type="pagination">
+        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= filteredFilms.length} type="pagination">
           <AiOutlineRight />
         </Button>
       </PaginationWrapper>
@@ -93,4 +102,3 @@ const BookMarked = () => {
 };
 
 export default BookMarked;
-
