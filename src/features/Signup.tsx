@@ -23,16 +23,12 @@ const Signup = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
-       await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      toast.success('You are successfuly create user');
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      toast.success('You have successfully created a user');
     } catch (error) {
-      toast.error('You can not create new user');
+      toast.error('Unable to create new user');
     }
   };
 
@@ -46,7 +42,9 @@ const Signup = () => {
           {...register('name')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+        {errors.name?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.name.message)}</p>
+        )}
       </div>
       <div className="mb-2">
         <Label text="Last name" />
@@ -56,7 +54,9 @@ const Signup = () => {
           {...register('lastname')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.lastname && <p className="text-red-500 text-sm mt-1">{errors.lastname.message}</p>}
+        {errors.lastname?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.lastname.message)}</p>
+        )}
       </div>
       <div className="mb-2">
         <Label text="Email" />
@@ -66,7 +66,9 @@ const Signup = () => {
           {...register('email')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.email.message)}</p>
+        )}
       </div>
       <div className="mb-2">
         <Label text="Password" />
@@ -76,9 +78,11 @@ const Signup = () => {
           {...register('password')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+        {errors.password?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.password.message)}</p>
+        )}
       </div>
-      <Button type="login">Sign up</Button>
+      <Button type="login" onClick={() => console.log('sign up')}>Sign up</Button>
     </form>
   );
 };

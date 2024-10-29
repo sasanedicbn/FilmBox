@@ -6,6 +6,7 @@ import Button from '../components/UI/Button';
 import Label from '../components/UI/Label';
 import { auth } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -20,14 +21,15 @@ const LoginForm = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
- const navigate = useNavigate()
-  const onSubmit = async (data) => {
+  const navigate = useNavigate();
+  
+  const onSubmit = async (data: any) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate('/home')
+      navigate('/home');
       console.log('Korisnik je prijavljen:', userCredential.user);
     } catch (error) {
-      console.error('Greška prilikom prijave:', error.message);
+      toast.error('Error, you can\'t log in! Try again.');
     }
   };
 
@@ -41,7 +43,9 @@ const LoginForm = () => {
           {...register('email')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+        {errors.email?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.email.message)}</p>
+        )}
       </div>
       <div className="mb-4">
         <Label text="Password" />
@@ -51,9 +55,11 @@ const LoginForm = () => {
           {...register('password')}
           className="w-full mb-2 p-2 border border-gray-300 rounded-lg"
         />
-        {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+        {errors.password?.message && (
+          <p className="text-red-500 text-sm mt-1">{String(errors.password.message)}</p>
+        )}
       </div>
-      <Button type="login">Log in</Button>
+      <Button type="login" onClick={() => console.log('logovan')}>Log in</Button>
     </form>
   );
 };
