@@ -8,7 +8,7 @@ import { Film } from "../../../types/types";
 import Spinner from "../../UI/Spinner";
 
 const HeaderTestimonial = () => {
-    const [films, setFilms] = useState([]);
+    const [films, setFilms] = useState<Film[]>([]); 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentFilms, setCurrentFilms] = useState(4);
     const [loading, setLoading] = useState(true); 
@@ -20,7 +20,7 @@ const HeaderTestimonial = () => {
         const testimonialList = testimonialSnapshot.docs.map((doc) => ({
             id2: doc.id,
             ...doc.data(),
-        }));
+        })) as Film[];
         setFilms(testimonialList);
         setLoading(false); 
     };
