@@ -5,6 +5,7 @@ import store from "../../store/store";
 import { db } from "../../config/firebase";
 import { RootState, setCurrentGenre, setFilms } from "../../store/slices/filmsSlice";
 import { toast } from "react-toastify";
+import { Film } from "../../types/types";
 
 const useFilmsGenre = () => {
   const [lastVisible, setLastVisible] = useState<any>(null);
@@ -42,10 +43,10 @@ const useFilmsGenre = () => {
         .map((doc) => ({
           id2: doc.id,
           ...doc.data(),
-        }))
+        } as Film))
         .filter((film) =>
           film.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        ) 
 
       if (isLoadMore) {
         const currentFilms = store.getState().films.films;
