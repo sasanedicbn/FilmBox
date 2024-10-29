@@ -67,6 +67,14 @@ export type PaginationWrapperProps = {
   children: ReactNode; 
   type: 'smallNumberPagination' | 'bigNumberPagination'; 
 }
+
+export type SelectProps = {
+  name: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  children: React.ReactNode; 
+  value?: any;
+  className?: string;
+}
 const coll = collection(db, "films");
 
 
