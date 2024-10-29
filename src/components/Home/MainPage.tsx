@@ -12,7 +12,7 @@ const MainPage = () => {
   };
 
   return (
-    <div className="bg-gray-900 overflow-hidden max-w-full w-full px-6">
+    <div className="bg-gray-900 overflow-hidden max-w-full w-full px-6 min-h-screen">
       <HeaderTestimonial />
       <BodyPage openClickedFilms={openItem} openFilms={openFilms} />
       {openFilms ? <Films /> : <BookMarked />}

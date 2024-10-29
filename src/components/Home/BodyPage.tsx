@@ -4,7 +4,6 @@ import Select from "../UI/Select";
 import Option from "../UI/Option";
 import { BodyPageProps } from "../../types/types";
 import useFilmsGenre from "../custom-hook/useFilmsGenre";
-import BookMarked from "./BookMarked/BookMarked";
 import { useDispatch } from "react-redux";
 import { setSearchTerm } from "../../store/slices/filmsSlice";
 
@@ -14,7 +13,6 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
     genre,
     searchTerm,
     handleGenreChange,
-    // handleSearchChange,
   } = useFilmsGenre();
 
   const handleSearchChange = (value: string) => {
@@ -58,11 +56,9 @@ const BodyPage = ({ openClickedFilms, openFilms }: BodyPageProps) => {
           type="pointer"
         />
       </div>
-      {/* Prosleđivanje searchTerm BookMarked komponenti */}
-      {/* <BookMarked searchTerm={searchTerm} /> */}
     </div>
   );
 };
 
 export default BodyPage;
-// 
+

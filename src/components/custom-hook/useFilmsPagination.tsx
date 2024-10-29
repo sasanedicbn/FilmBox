@@ -4,7 +4,6 @@ import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, sta
 import { db } from "../../config/firebase";
 import { setFilms } from "../../store/slices/filmsSlice";
 import { useEffect, useState } from "react";
-import {   setQueryData } from "../../types/types";
 
 const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);

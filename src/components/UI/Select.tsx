@@ -1,11 +1,4 @@
-
-interface SelectProps {
-    name: string;
-    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    children: React.ReactNode; 
-    value?: string;
-    className?: string;
-}
+import { SelectProps } from "../../types/types";
 
 const Select = ({ name, onChange, children, className }:SelectProps) => {
     return (

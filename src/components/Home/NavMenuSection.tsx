@@ -23,7 +23,7 @@ const NavMenuSection = () => {
                     <Link to='/home' className="text-white text-lg font-bold">FilmBox</Link>
                 </li>
                 <li>
-                    <p className="text-gray-200">Welcome back, {'SASA'}</p>
+                    <p className="text-gray-200">Welcome back</p>
                 </li>
                 <li>
                     <Link to={''}  onClick={handleLogout} className="text-white flex items-center">
