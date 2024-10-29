@@ -50,11 +50,12 @@ export type paginationProps = {
 }
 
 export type ButtonProps = {
-  type: 'login' | 'pagination' ;
+  type: 'login' | 'pagination' | 'upload' ;
   buttonType?: 'button' | 'submit' | 'reset'; 
   children: React.ReactNode;
   onClick: () => void; 
   disabled?: boolean; 
+
 }
 
 export type LengthPaginationProps = {

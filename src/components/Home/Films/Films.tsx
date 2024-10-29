@@ -11,7 +11,7 @@ import Spinner from "../../UI/Spinner";
 
 const Films = () => {
   const films = useSelector((state: RootState) => state.films.films);
-  const genre = useSelector((state) => state.films.currentGenre);
+  const genre = useSelector((state: RootState) => state.films.currentGenre) as string | null;
   const { totalCount } = useFilmsGenre();
   const { fetchNextPage, fetchPreviousPage, fetchPage } = useFilmsPagination();
   const { fetchSortedFilms } = useFilmsGenre();
