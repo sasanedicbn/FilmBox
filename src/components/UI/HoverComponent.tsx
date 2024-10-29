@@ -28,12 +28,11 @@ const HoverComponent = ({ films }: { films: Film }) => {
         navigate(`/home/${filmId}`);
         return filmData;
       } else {
-        toast.error("Film nije pronađen.");
+        toast.error("Film is not found.");
         return null;
       }
     } catch (error) {
-      console.error("Greška pri dohvaćanju filma:", error);
-      toast.error("Greška pri dohvaćanju filma.");
+      toast.error("Film is not found.");
       return null;
     }
   };

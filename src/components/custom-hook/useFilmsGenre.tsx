@@ -40,7 +40,7 @@ const useFilmsGenre = () => {
       const querySnapshot = await getDocs(q);
       const filteredFilms = querySnapshot.docs
         .map((doc) => ({
-          id: doc.id,
+          id2: doc.id,
           ...doc.data(),
         }))
         .filter((film) =>

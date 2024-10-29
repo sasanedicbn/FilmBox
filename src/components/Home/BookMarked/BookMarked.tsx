@@ -10,6 +10,7 @@ import { Film } from "../../../types/types";
 import { toast } from "react-toastify";
 import { auth, db } from "../../../config/firebase";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../store/slices/filmsSlice";
 
 
 const BookMarked = () => {
@@ -17,7 +18,7 @@ const BookMarked = () => {
   const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const filmsPerPage = 12;
-  const searchTerm = useSelector((state) => state.films.searchTerm);
+  const searchTerm = useSelector((state:RootState) => state.films.searchTerm);
 
   const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
   const indexOfLastFilm = currentPage * filmsPerPage;
@@ -68,6 +69,7 @@ const BookMarked = () => {
     }
   };
 
+  console.log('booked FIlm', bookedFilm)
   return (
     <div className="max-w-[71rem] mx-auto mt-14">
       <div className="grid grid-cols-4 gap-6">
