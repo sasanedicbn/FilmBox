@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchPagination } from "../../api/paginations";
 import { collection, endBefore, getDocs, limit, limitToLast, orderBy, query, startAfter } from "firebase/firestore";
 import { db } from "../../config/firebase";
@@ -9,7 +9,6 @@ const useFilmsPagination = () => {
   const [lastVisible, setLastVisible] = useState<null | any>(null);
   const [firstVisible, setFirstVisible] = useState<null | any>(null);
   const dispatch = useDispatch();
-  const genre = useSelector((state) => state.films.currentGenre)
 
   const fetchPaginations = async () => {
     const films = await fetchPagination(setFirstVisible, setLastVisible);

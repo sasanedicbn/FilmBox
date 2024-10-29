@@ -15,12 +15,10 @@ const Pagination = ({ fetchNextPage, fetchPreviousPage, fetchPage }:paginationPr
     useEffect(() => {
         const totalFilms = async () => {
             const filmsCount = await fetchTotalFilmsCount();
-            // console.log('filmsCount', filmsCount)
             setNumPagination(filmsCount);
         };
         totalFilms();
     }, [activePage]); 
-    // ovo ne moze ovako poslacu iz svake komponente length niza i kroz props u pagination proslijediti
 
     const handlePageChange = (index:number) => {
         setActivePage(index);
