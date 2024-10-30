@@ -24,10 +24,8 @@ const BookMarked = () => {
   );
 
   const genreFilteredFilms = genre ? filteredFilms.filter((film) => film.genre.includes(genre)) : filteredFilms
-  console.log('genreFilteredFilms', genreFilteredFilms)
 
   const filmsPerPage = 12;
-
   const paginationFilms = Math.ceil(genreFilteredFilms.length / filmsPerPage);
   const indexOfLastFilm = currentPage * filmsPerPage;
   const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
@@ -76,7 +74,7 @@ const BookMarked = () => {
   console.log('booked Film', bookedFilm);
   return (
     <div className="max-w-[71rem] mx-auto mt-14">
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {currentFilms.length > 0 ? (
           currentFilms.map((film: Film) => (
             <div key={film.id} className="flex flex-col">
