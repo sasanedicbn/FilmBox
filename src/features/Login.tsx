@@ -6,13 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [openSignUp, setOpenSignUp] = useState(true);
-  const navigate = useNavigate()
-
-  const openSignUpHandler = () => {
-    setOpenSignUp((state) => !state);
-  };
-  
-  const signUpGuestHandler = () => { 
     navigate('/home')
   }
 

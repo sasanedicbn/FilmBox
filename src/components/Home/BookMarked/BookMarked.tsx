@@ -96,6 +96,11 @@ const BookMarked = () => {
           handlePageChange={setCurrentPage}
         />
         <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= genreFilteredFilms.length} type="pagination">
-          <AiOutli
+          <AiOutlineRight />
+        </Button>
+      </PaginationWrapper>
+    </div>
+  );
+};
 
 export default BookMarked;
