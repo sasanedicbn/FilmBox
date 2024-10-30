@@ -12,23 +12,27 @@ import { auth, db } from "../../../config/firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/slices/filmsSlice";
 
-
 const BookMarked = () => {
   const currentUser = auth.currentUser;
   const [bookedFilm, setBookedFilm] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const filmsPerPage = 12;
-  const searchTerm = useSelector((state:RootState) => state.films.searchTerm);
-
-  const paginationFilms = Math.ceil(bookedFilm.length / filmsPerPage);
-  const indexOfLastFilm = currentPage * filmsPerPage;
-  const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
-
+  const searchTerm = useSelector((state: RootState) => state.films.searchTerm);
+  const genre = useSelector((state: RootState) => state.films.currentGenre); 
+  
   const filteredFilms = bookedFilm.filter((film) =>
     film.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const currentFilms = filteredFilms.slice(indexOfFirstFilm, indexOfLastFilm);
+  const genreFilteredFilms = genre ? filteredFilms.filter((film) => film.genre.includes(genre)) : filteredFilms
+  console.log('genreFilteredFilms', genreFilteredFilms)
+
+  const filmsPerPage = 12;
+
+  const paginationFilms = Math.ceil(genreFilteredFilms.length / filmsPerPage);
+  const indexOfLastFilm = currentPage * filmsPerPage;
+  const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
+
+  const currentFilms = genreFilteredFilms.slice(indexOfFirstFilm, indexOfLastFilm);
 
   useEffect(() => {
     const fetchBookmarkedFilms = async () => {
@@ -58,7 +62,7 @@ const BookMarked = () => {
   }, [currentUser]);
 
   const handleNextMarkedFilms = () => {
-    if (indexOfLastFilm < filteredFilms.length) {
+    if (indexOfLastFilm < genreFilteredFilms.length) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -69,7 +73,7 @@ const BookMarked = () => {
     }
   };
 
-  console.log('booked FIlm', bookedFilm)
+  console.log('booked Film', bookedFilm);
   return (
     <div className="max-w-[71rem] mx-auto mt-14">
       <div className="grid grid-cols-4 gap-6">
@@ -93,7 +97,7 @@ const BookMarked = () => {
           activePage={currentPage}
           handlePageChange={setCurrentPage}
         />
-        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= filteredFilms.length} type="pagination">
+        <Button onClick={handleNextMarkedFilms} disabled={indexOfLastFilm >= genreFilteredFilms.length} type="pagination">
           <AiOutlineRight />
         </Button>
       </PaginationWrapper>
