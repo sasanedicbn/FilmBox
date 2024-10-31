@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import store from '../store';
 
 const initialState = {
@@ -33,16 +32,6 @@ export const filmsSlice = createSlice({
     setCurrentGenre: (state, action) => {
       state.currentGenre = action.payload;
     },
-    addMarketFilms: (state, action) => {
-      const existingFilm = state.markedFilms.find(film => film.id2 === action.payload.id2);
-      if (!existingFilm) {
-        state.markedFilms.push(action.payload);
-        toast.success("Film marked successfully!");
-      } else {
-        state.markedFilms.splice(existingFilm, 1);
-        toast.error("Remove marked from film.");
-      }
-    },
     setSearchTerm: (state, action) => {  
       state.searchTerm = action.payload;
     },
@@ -51,6 +40,6 @@ export const filmsSlice = createSlice({
 
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, addMarketFilms, setBookedFilms, setCurrentGenre, setSearchTerm } = filmsSlice.actions;
+export const { setFilms, getTestimonialFilms, setCurrentFilm, clearCurrentFilm, setBookedFilms, setCurrentGenre, setSearchTerm } = filmsSlice.actions;
 
 export default filmsSlice.reducer;
