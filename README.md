@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+ilmBox 🎬
+FilmBox is a React application that allows users to browse through a collection of movies, view detailed information for each title, and watch trailers. Users can also bookmark their favorite movies for easy access later. The app leverages Firebase for user authentication and data storage.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Demo Access
+To access the application, use the following credentials:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Email: dragisa22@gmail.com
+Password: sasanedic
+Features
+Sign Up / Login: User authentication via Firebase.
+Bookmark Movies: Users can add movies to a favorites list for future reference.
+Pagination and Filtering: Movies are displayed with pagination and filtering for a smoother browsing experience.
+Responsive Design: Optimized for both mobile and desktop devices.
+Technologies Used
+React
+Redux Toolkit
+React Player (for displaying trailers)
+React Icons (for icons in the application)
+Zod (for data validation)
+Firebase (for authentication and backend services)
+Tailwind CSS (for styling)
+Typescript
+Vite
+Toastify (for user notifications)
